@@ -236,6 +236,7 @@ TEST(InitialTestSuite, uut_device_init_load) {
   }
 }
 
+#ifndef LIBOMPTARGET_LIBOMPTEST_USE_GOOGLETEST
 int main(int argc, char **argv) {
   libomptest_global_eventreporter_set_active(false);
   Runner R;
@@ -243,3 +244,4 @@ int main(int argc, char **argv) {
 
   return 0;
 }
+#endif

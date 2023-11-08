@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.22)
+cmake_minimum_required(VERSION 3.16)
 
 if(NOT DEFINED PROJECT_NAME OR PROJECT_NAME STREQUAL "")
   get_filename_component(PROJECT_NAME ${CMAKE_CURRENT_LIST_DIR} NAME)
@@ -39,5 +39,10 @@ target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)
 # Note: omp[target] will be linked automatically because of the offload options
 target_link_libraries(${PROJECT_NAME} PRIVATE ${OFFLOAD_OPTIONS} omptest)
 
-# Notify: this test does not use GoogleTest
-message(STATUS "GoogleTest: OFF")
+if(DEFINED USE_GOOGLETEST AND USE_GOOGLETEST STREQUAL "ON")
+  message(STATUS "GoogleTest: ON")
+  add_definitions(-DLIBOMPTARGET_LIBOMPTEST_USE_GOOGLETEST)
+  target_link_libraries(${PROJECT_NAME} PRIVATE gtest gtest_main)
+else()
+  message(STATUS "GoogleTest: OFF")
+endif()
