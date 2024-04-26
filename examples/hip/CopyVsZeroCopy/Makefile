@@ -94,6 +94,12 @@ else
   CFLAGS = -x hip -std=c++11 $(HIPLIBS) -lamdhip64 -mcode-object-version=4
 endif
 
+# CFLAGS               += -DCHECK_RESULTS
+# AOMP_TARGET_FEATURES  =:xnack+
+AOMP_GPU              = gfx942
+TARGETS               = --offload-arch=$(AOMP_GPU)
+# TARGETS               = --offload-arch=$(AOMP_GPU)$(AOMP_TARGET_FEATURES)
+
 # ----- Demo compile and link in one step, no object code saved
 $(TESTNAME): $(TESTNAME).$(FILETYPE)
 	$(CC) $(CFLAGS) $(TARGETS) $(LFLAGS) $^ -o $@

@@ -38,7 +38,7 @@
 __global__ void init_xx(double *xx, int length) {
   int i = threadIdx.x + blockIdx.x*blockDim.x;
   if (i > length) return;
-  xx[i] = 1.0;   
+  xx[i] = 1.0;
 }
 
 __global__ void inc_xx(double *xx, int blksize, int nk) {
@@ -46,7 +46,7 @@ __global__ void inc_xx(double *xx, int blksize, int nk) {
   if (k >= blksize) {
     return;
   }
-  for(int i=0; i<2*nk; i++) {    
+  for(int i=0; i<2*nk; i++) {
     xx[k*2*nk + i] += 1.0;
   }
   return;
@@ -62,8 +62,14 @@ int main() {
   int np = (1 << mm);
   int numblks = ceil( (double)np / (double) blksize);
   hipError_t err;
-  
+  int Iterations = 10;
+
+#ifdef CHECK_RESULTS
   printf("numblks = %d\n", numblks);
+  printf(" > Mode: Correctness Checking\n");
+  for (int t = 0; t < blksize * 2 * nk; t++)
+    xx[t] = 0.0;
+#endif
 
   char *HSA_XNACK_Env = getenv("HSA_XNACK");
   bool isXnackEnabled = false;
@@ -71,24 +77,30 @@ int main() {
     int HSA_XNACK_Val = atoi(HSA_XNACK_Env);
     isXnackEnabled = (HSA_XNACK_Val > 0) ? true : false;
   }
-  
+
   double *d_xx = nullptr;
-  //#pragma omp target enter data map(alloc:xx[0:blksize*2*nk])
+  // #pragma omp target enter data map(alloc : xx[0:blksize*2*nk])
   if (!isXnackEnabled) { // Copy
+#ifdef CHECK_RESULTS
     printf("OpenMP Copy configuration\n");
+#endif
     err = hipMalloc(&d_xx, blksize*2*nk*sizeof(double));
     if (err != HIP_SUCCESS) {
-      printf("Cannot allocate device memory\n");
+      // printf("Cannot allocate device memory\n");
       return 0;
     }
     //hipMemcpy(d_xx, xx, blksize*2*nk*sizeof(double), hipMemcpyHostToDevice);
   } else {
+#ifdef CHECK_RESULTS
     printf("OpenMP Zero-Copy configuration\n");
+#endif
     d_xx = xx; // zero-copy
   }
 
-  for (int blk=0; blk < 10; ++blk) {
+  for (int blk=0; blk < Iterations; ++blk) {
+#ifdef CHECK_RESULTS
     printf("blk=%d\n", blk);
+#endif
     // #pragma omp target teams loop collapse(2)
     // for(int k=0; k<blksize; k++)
     //   for(int i=0; i<2*nk; i++)
@@ -97,11 +109,57 @@ int main() {
     hipDeviceSynchronize();
     // #pragma omp target teams loop
     // for (int k = 0; k < blksize; k++)
-    //   for(int i=0; i<2*nk; i++)    
-    // 	xx[k*2*nk + i] += 1.0;    
+    //   for(int i=0; i<2*nk; i++)
+    // 	xx[k*2*nk + i] += 1.0;
     inc_xx<<<938, 16, 0>>>(d_xx, blksize, nk);
     hipDeviceSynchronize();
   }
+
+  // #pragma omp target exit data map(from : xx[0:blksize*2*nk])
+  if (!isXnackEnabled) { // Copy
+    err = hipMemcpy(xx, d_xx, blksize*2*nk*sizeof(double), hipMemcpyDeviceToHost);
+    if (err != HIP_SUCCESS) {
+      // printf("Cannot copy device to host memory\n");
+      return 0;
+    }
+#ifdef CHECK_RESULTS
+    printf(" > Copy -- Device->Host -- DONE\n");
+#endif
+  }
+
+#ifdef CHECK_RESULTS
+  // Keep in mind: this will create a file of size: sizeof(double) * NumElements
+  size_t NumElements = 1024 * 1024 * 4;
+  FILE *FilePtr;
+  FilePtr = fopen("hip.bin", "wb");
+  size_t WrittenCount = fwrite(xx, sizeof(double), NumElements, FilePtr);
+  fclose(FilePtr);
+  printf(" > Done -- HIP results (%lu / %lu elements written)\n",
+         WrittenCount, NumElements);
+
+  // std::ofstream FileStream;
+  // FileStream.open("hip.txt");
+  // for (size_t i = 0; i < NumElements; ++i)
+  //  FileStream << xx[i] << '\n';
+  // FileStream.close();
+
+  for (size_t i = 0; i < 20; ++i)
+    printf("%f : ", xx[i]);
+  printf("\n");
+
+  double Expected = 2.0f;
+  size_t Matches = 0;
+  size_t MaxNumElements = blksize * 2 * nk;
+
+  for (size_t i = 0; i < MaxNumElements; ++i) {
+    if (xx[i] == Expected)
+      ++Matches;
+  }
+
+  printf(" > Done -- HIP results (full check) -- Mismatched elements: %lu\n",
+         MaxNumElements - Matches);
+
+#endif
 
   return 0;
 }
