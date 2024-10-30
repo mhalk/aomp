@@ -23,6 +23,8 @@ if [ ! -d $MODEL_DIR ]; then
 fi
 pushd $MODEL_DIR
 
+pushd $MODEL_DIR
+
 # Install huggingface-cli to download the PowerInfer GGUF models
 pip install -U "huggingface_hub[cli]"
 export PATH=$PATH:$HOME/.local/bin
@@ -64,7 +66,7 @@ popd
 PREDICTION_LENGTH=128
 THREAD_COUNT=8
 PROMPT="Once upon a time"
-VRAM_BUDGET=4
+VRAM_BUDGET=16
 
 MODEL_NAME_BASE=$(basename $MODEL_NAME)
 
@@ -83,7 +85,6 @@ fi
 $POWERINFER_INSTALL_DIR/bin/main -m $MODEL_DIR/$MODEL_NAME -n $PREDICTION_LENGTH -t $THREAD_COUNT -p "$PROMPT" --vram-budget $VRAM_BUDGET 2>&1 | tee $LOG_FILE_NAME.log
 
 set +x
-
 # Print the log file name and parameters with which the model was run
 echo "Inference via PowerInfer completed for the following:"
 echo "Model: $MODEL_NAME"

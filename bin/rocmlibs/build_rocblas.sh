@@ -27,8 +27,7 @@ else
    git checkout release/rocm-rel-6.2
    git pull
    # FIXME:  We should get the Tensile hash from rocBLAS/tensile_tag.txt
-   #git checkout 97e0cfc2c8cb87a1e38901d99c39090dc4181652
-   git checkout 66ab453c3fcfc3f3816e3383cb0eccb528a1b5a9
+   git checkout 09ec3476785198159195e2b8d635db13733682d4
    cd $_cwd
    _local_tensile_opt="--test_local_path=$_tensile_repo_dir"
 fi

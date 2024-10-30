@@ -1,5 +1,5 @@
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index f857f1e..de6b11e 100644
+index 0f88788..95d5ac6 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
 @@ -159,12 +159,14 @@ if(NOT DEFINED AMDGPU_TARGETS)
@@ -14,6 +14,6 @@ index f857f1e..de6b11e 100644
        gfx1101
        gfx1102
 +      gfx1103
+       gfx1151
    )
    set(AMDGPU_TARGETS_INIT
-     gfx900

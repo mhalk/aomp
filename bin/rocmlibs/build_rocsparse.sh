@@ -25,15 +25,15 @@ for _arch in $GFXLIST ; do
  fi
  _sep=";"
 done
-export CC=$AOMP_INSTALL_DIR/bin/clang 
-export CXX=$AOMP_INSTALL_DIR/bin/clang++
+export CC=$LLVM_INSTALL_LOC/bin/clang 
+export CXX=$LLVM_INSTALL_LOC/bin/clang++
 export ROCM_DIR=$AOMP_INSTALL_DIR
 export ROCM_PATH=$AOMP_INSTALL_DIR
 export PATH=$AOMP_SUPP/cmake/bin:$AOMP_INSTALL_DIR/bin:$PATH
 export HIP_USE_PERL_SCRIPTS=1
 export USE_PERL_SCRIPTS=1
 export NUM_PROC=$AOMP_JOB_THREADS
-export CXXFLAGS="-I$AOMP_INSTALL_DIR/include -D__HIP_PLATFORM_AMD__=1"
+export CXXFLAGS="-I$LLVM_INSTALL_LOC/include -D__HIP_PLATFORM_AMD__=1"
 export LDFLAGS="-fPIC"
 if [ "$AOMP_USE_CCACHE" != 0 ] ; then
    _ccache_bin=`which ccache`

@@ -36,10 +36,10 @@ export CXXFLAGS="-I$AOMP_INSTALL_DIR/include -D__HIP_PLATFORM_AMD__=1"
 
 MYCMAKEOPTS="-DCMAKE_BUILD_TYPE=$BUILD_TYPE \
 -DLLAMA_HIPBLAS=ON \
--DCMAKE_PREFIX_PATH=$AOMP_INSTALL_DIR/lib/cmake  \
+-DCMAKE_PREFIX_PATH=$LLVM_INSTALL_LOC/lib/cmake  \
 -DCMAKE_INSTALL_PREFIX=$AOMP_INSTALL_DIR/PowerInfer \
--DCMAKE_C_COMPILER=$AOMP/bin/clang \
--DCMAKE_CXX_COMPILER=$AOMP/bin/clang++ \
+-DCMAKE_C_COMPILER=$LLVM_INSTALL_LOC/bin/clang \
+-DCMAKE_CXX_COMPILER=$LLVM_INSTALL_LOC/bin/clang++ \
 -DHIP_PLATFORM=amd \
 -DAMDGPU_TARGETS="\'$GFXSEMICOLONS\'" \
 "
@@ -115,6 +115,22 @@ if [ "$1" == "install" ] ; then
    echo
    echo "SUCCESSFUL INSTALL to $AOMP_INSTALL_DIR/PowerInfer"
    echo
+   pushd $_repo_dir
+   cd gguf-py
+   echo "Installing gguf python package"
+   pip install .
+   if [ $? != 0 ] ; then
+      echo "ERROR pip install failed for PowerInfer/gguf-py package"
+      exit 1
+   fi
+   cd ../powerinfer-py
+   echo "Installing powerinfer python package"
+   pip install .
+   if [ $? != 0 ] ; then
+      echo "ERROR pip install failed for PowerInfer/powerinfer-py package"
+      exit 1
+   fi
+   popd
    removepatch $_repo_dir
 else 
    echo 

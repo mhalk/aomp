@@ -25,8 +25,9 @@ for _arch in $GFXLIST ; do
  fi
  _sep=";"
 done
-#export CC=$AOMP_INSTALL_DIR/bin/clang 
-#export CXX=$AOMP_INSTALL_DIR/bin/clang++
+export CC=$LLVM_INSTALL_LOC/bin/clang
+export CXX=$LLVM_INSTALL_LOC/bin/clang++
+export FC=$LLVM_INSTALL_LOC/bin/flang
 export ROCM_DIR=$AOMP_INSTALL_DIR
 export ROCM_PATH=$AOMP_INSTALL_DIR
 export PATH=$AOMP_SUPP/cmake/bin:$AOMP_INSTALL_DIR/bin:$PATH
