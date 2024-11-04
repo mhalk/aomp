@@ -38,24 +38,33 @@ else
                 gfx1013, gfx1013:xnack+
 endif
 
-ifeq ($(AOMP),)
+
 # --- Standard Makefile check for AOMP installation ---
-ifeq ("$(wildcard $(AOMP))","")
-  ifneq ($(AOMP),)
-    $(warning AOMP not found at $(AOMP))
-  endif
-  AOMP = $(HOME)/rocm/aomp
-  ifeq ("$(wildcard $(AOMP))","")
-    $(warning AOMP not found at $(AOMP))
-    AOMP = /usr/lib/aomp
-    ifeq ("$(wildcard $(AOMP))","")
-      $(warning AOMP not found at $(AOMP))
-      $(error Please install AOMP or correctly set env-var AOMP)
+ifeq ("$(wildcard $(AOMP)/bin/clang)","")
+  ifeq ("$(AOMP)","")
+    # AOMP is not set, look for it
+    AOMP = $(HOME)/rocm/aomp/lib/llvm
+    ifeq ("$(wildcard $(AOMP)/bin/clang)","")
+      AOMP = /usr/lib/aomp/lib/llvm
+      ifeq ("$(wildcard $(AOMP)/bin/clang)","")
+        AOMP = /opt/rocm/lib/llvm
+        ifeq ("$(wildcard $(AOMP)/bin/clang)","")
+          $(error Please install AOMP or correctly set env-var AOMP)
+        endif
+      endif
+    endif
+    $(info WARNING: Setting AOMP to $(AOMP))
+  else
+    # AOMP is set but clang not found, check for old convention.
+    ifneq ("$(wildcard $(AOMP)/lib/llvm/bin/clang)","")
+      AOMP= $(shell printenv AOMP)/lib/llvm
+      $(info WARNING: Setting AOMP to new convention $(AOMP))
+    else
+      $(error Error Could not find $(AOMP)/bin/clang)
     endif
   endif
 endif
 # --- End Standard Makefile check for AOMP installation ---
-endif
 
 ifneq ($(TIMEOUT),)
   TKILL= timeout $(TIMEOUT)
