@@ -6,7 +6,6 @@ TESTSRC_AUX  =
 TESTSRC_ALL  = $(TESTSRC_MAIN) $(TESTSRC_AUX)
 RUNENV      += LIBOMPTARGET_KERNEL_TRACE=1
 RUNENV      += OMPX_XTEAMREDUCTION_OCCUPANCY_BASED_OPT=1
-CFLAGS      += -fopenmp-target-ignore-env-vars -fopenmp-assume-no-nested-parallelism -fopenmp-assume-no-thread-state
 
 RUNCMD      = ./$(TESTNAME) 2>&1 | $(FILECHECK) $(TESTSRC_MAIN)
 

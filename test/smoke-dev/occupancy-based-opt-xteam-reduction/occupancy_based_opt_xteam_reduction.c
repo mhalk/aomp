@@ -42,4 +42,6 @@ int main()
 }
 
 /// CHECK: Achieved Occupancy: 100%
+/// CHECK: Achieved Occupancy: 100%
+/// CHECK: Achieved Occupancy: 100%
 
