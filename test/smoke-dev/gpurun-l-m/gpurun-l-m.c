@@ -16,26 +16,26 @@ int main(int argc, char* argv[]) {
         return -1;
     }
 
-    // Calculate the number of long int that can be allocated
-    long int numDoubles = numBytes / sizeof(long int);
-    if (numDoubles == 0) {
+    // Calculate the number of long int(s) that can be allocated
+    long int numLongInts = numBytes / sizeof(long int);
+    if (numLongInts == 0) {
         printf("Not enough bytes to allocate a long int array.\n");
         return -1;
     }
 
     // Allocate memory for the long int array
-    long int* array = (long int*)malloc(numDoubles * sizeof(long int));
+    long int* array = (long int*)malloc(numLongInts * sizeof(long int));
     if (array == NULL) {
         printf("Memory allocation failed.\n");
         return -1; // Malloc failed
     }
 
     // Fill the array with their associated indexes using OpenMP offloading
-    #pragma omp target data map(tofrom: array[0:numDoubles])
+    #pragma omp target data map(tofrom: array[0:numLongInts])
     {
         {
             #pragma omp target teams distribute parallel for
-            for (long int i = 0; i < numDoubles; i++) {
+            for (long int i = 0; i < numLongInts; i++) {
                 array[i] = i; // Assign index values
             }
         }
@@ -43,11 +43,11 @@ int main(int argc, char* argv[]) {
 
     // Check the array for correctness using OpenMP offloading
     int isCorrect = 1; // Flag to check correctness
-    #pragma omp target data map(to: array[0:numDoubles]) map(from: isCorrect)
+    #pragma omp target data map(to: array[0:numLongInts]) map(from: isCorrect)
     {
         {
             #pragma omp target teams distribute parallel for
-            for (long int i = 0; i < numDoubles; i++) {
+            for (long int i = 0; i < numLongInts; i++) {
                 if (array[i] != i) {
                     isCorrect = 0; // Data is incorrect
                 }
