@@ -16,15 +16,15 @@ int main(int argc, char* argv[]) {
         return -1;
     }
 
-    // Calculate the number of doubles that can be allocated
-    long int numDoubles = numBytes / sizeof(double);
+    // Calculate the number of long int that can be allocated
+    long int numDoubles = numBytes / sizeof(long int);
     if (numDoubles == 0) {
-        printf("Not enough bytes to allocate a double array.\n");
+        printf("Not enough bytes to allocate a long int array.\n");
         return -1;
     }
 
-    // Allocate memory for the double array
-    double* array = (double*)malloc(numDoubles * sizeof(double));
+    // Allocate memory for the long int array
+    long int* array = (long int*)malloc(numDoubles * sizeof(long int));
     if (array == NULL) {
         printf("Memory allocation failed.\n");
         return -1; // Malloc failed
@@ -36,7 +36,7 @@ int main(int argc, char* argv[]) {
         {
             #pragma omp target teams distribute parallel for
             for (long int i = 0; i < numDoubles; i++) {
-                array[i] = (double)i; // Assign index values
+                array[i] = i; // Assign index values
             }
         }
     }
@@ -48,7 +48,7 @@ int main(int argc, char* argv[]) {
         {
             #pragma omp target teams distribute parallel for
             for (long int i = 0; i < numDoubles; i++) {
-                if (array[i] != (double)i) {
+                if (array[i] != i) {
                     isCorrect = 0; // Data is incorrect
                 }
             }
@@ -58,12 +58,11 @@ int main(int argc, char* argv[]) {
     // Print results
     if (isCorrect) {
         printf("Array successfully allocated, assigned, and checked.\n");
+        free(array);
+        return 0; // Success
     } else {
         printf("Array check failed: data is incorrect.\n");
+        free(array);
+        return -5; // Fail
     }
-
-    // Free the allocated memory
-    free(array);
-    return 0; // Success
 }
-
