@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-#  build_openmp.sh:  Script to build the AOMP runtime libraries and debug libraries.  
+#  build_openmp.sh:  Script to build the AOMP runtime libraries and debug libraries.
 #                This script will install in location defined by AOMP env variable
 #
 
@@ -12,7 +12,7 @@ thisdir=`dirname $realpath`
 
 INSTALL_OPENMP=${INSTALL_OPENMP:-$LLVM_INSTALL_LOC}
 
-if [ "$1" == "-h" ] || [ "$1" == "help" ] || [ "$1" == "-help" ] ; then 
+if [ "$1" == "-h" ] || [ "$1" == "help" ] || [ "$1" == "-help" ] ; then
   help_build_aomp
 fi
 
@@ -42,10 +42,10 @@ if [ ! -d $AOMP_REPOS/$AOMP_PROJECT_REPO_NAME ] ; then
 fi
 
 # Make sure we can update the install directory
-if [ "$1" == "install" ] ; then 
+if [ "$1" == "install" ] ; then
    $SUDO mkdir -p $INSTALL_OPENMP
    $SUDO touch $INSTALL_OPENMP/testfile
-   if [ $? != 0 ] ; then 
+   if [ $? != 0 ] ; then
       echo "ERROR: No update access to $INSTALL_OPENMP"
       exit 1
    fi
@@ -118,8 +118,8 @@ export HSA_RUNTIME_PATH=$ROCM_DIR
 #breaks build as it cant find rocm-path
 #export HIP_DEVICE_LIB_PATH=$ROCM_DIR/lib
 
-if [ "$1" != "nocmake" ] && [ "$1" != "install" ] ; then 
-   echo " " 
+if [ "$1" != "nocmake" ] && [ "$1" != "install" ] ; then
+   echo " "
    echo "This is a FRESH START. ERASING any previous builds in $BUILD_DIR/openmp."
    echo "Use ""$0 nocmake"" or ""$0 install"" to avoid FRESH START."
    echo rm -rf $BUILD_DIR/build/openmp
@@ -196,7 +196,7 @@ if [ "$1" != "nocmake" ] && [ "$1" != "install" ] ; then
       [[ ! -d $_ompd_dir ]] && _ompd_dir="$AOMP_INSTALL_DIR/share/gdb/python/ompd"
       echo rm -rf $BUILD_DIR/build/openmp_debug
       rm -rf $BUILD_DIR/build/openmp_debug
-      
+
       DEBUGCMAKEOPTS="
 -DLIBOMPTARGET_NVPTX_DEBUG=ON \
 -DLLVM_ENABLE_ASSERTIONS=ON \
@@ -304,7 +304,7 @@ if [ "$AOMP_BUILD_PERF" == "1" ] ; then
    echo
    echo " -----Running $AOMP_NINJA_BIN for $BUILD_DIR/build/openmp_perf ---- "
    $AOMP_NINJA_BIN -j $AOMP_JOB_THREADS
-   if [ $? != 0 ] ; then 
+   if [ $? != 0 ] ; then
          echo "ERROR $AOMP_NINJA_BIN -j $AOMP_JOB_THREADS failed"
          exit 1
    fi
@@ -354,7 +354,7 @@ fi
 fi
 
 #  ----------- Install only if asked  ----------------------------
-if [ "$1" == "install" ] ; then 
+if [ "$1" == "install" ] ; then
    clang_major=$("$AOMP_INSTALL_DIR"/bin/clang --version | grep -oP '(?<=clang version )[0-9]+')
    llvm_dylib=$(readlink "$AOMP_INSTALL_DIR"/lib/libLLVM.so)
    if [ "$AOMP_LEGACY_OPENMP" == "1" ] && [ "$SANITIZER" != 1 ] ; then
