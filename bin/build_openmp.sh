@@ -128,6 +128,20 @@ if [ "$1" != "nocmake" ] && [ "$1" != "install" ] ; then
      MYCMAKEOPTS="$COMMON_CMAKE_OPTS -DCMAKE_PREFIX_PATH=$AOMP_INSTALL_DIR/lib/cmake -DCMAKE_BUILD_TYPE=Release $AOMP_ORIGIN_RPATH"
    else
      MYCMAKEOPTS="$COMMON_CMAKE_OPTS -DCMAKE_PREFIX_PATH=$INSTALL_PREFIX/lib/cmake -DCMAKE_BUILD_TYPE=Release $OPENMP_EXTRAS_ORIGIN_RPATH"
+
+     # XXX: Crude way to detect if we should enable building the mod files with flang-new.
+     # Is it preferrable to set it from the outside or based on branch name, some other in-tree file?
+     AOMP_BUILD_MODFILES_WITH_FLANG_NEW=0
+     if [ -e ${LLVM_INSTALL_LOC}/bin/flang-new ]; then
+       AOMP_BUILD_MODFILES_WITH_FLANG_NEW=1
+     fi
+
+     if [ "$AOMP_BUILD_MODFILES_WITH_FLANG_NEW" == 1 ]; then
+       echo "Building .mod files via:  $LLVM_INSTALL_LOC/bin/flang-new"
+       echo "Installing .mod files to: $LLVM_INSTALL_LOC/lib/llvm/include/flang/"
+       MYCMAKEOPTS="$MYCMAKEOPTS -DLIBOMP_FORTRAN_MODULES_COMPILER=$LLVM_INSTALL_LOC/bin/flang-new
+                    -DLIBOMP_MODULES_INSTALL_PATH=$LLVM_INSTALL_LOC/lib/llvm/include/flang/"
+     fi
    fi
 
    if [ "$AOMP_LEGACY_OPENMP" == "1" ] && [ "$SANITIZER" != 1 ]; then
