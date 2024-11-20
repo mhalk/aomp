@@ -156,6 +156,13 @@ if [ "$1" != "nocmake" ] && [ "$1" != "install" ] ; then
      fi
   fi
   if [ "$AOMP_BUILD_DEBUG" == 1 ]; then
+    if [ -d "$BUILD_DIR/build/hipamd_debug" ] ; then
+       echo
+       echo "FRESH START , CLEANING UP FROM PREVIOUS BUILD"
+       echo rm -rf $BUILD_DIR/build/hipamd_debug
+       rm -rf $BUILD_DIR/build/hipamd_debug
+    fi
+
      echo mkdir -p $BUILD_DIR/build/hipamd_debug
      mkdir -p $BUILD_DIR/build/hipamd_debug
      echo cd $BUILD_DIR/build/hipamd_debug
