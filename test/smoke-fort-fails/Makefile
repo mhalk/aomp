@@ -19,6 +19,7 @@ TESTS_DIR = \
     flang-464660-1 \
     flang-464660-2 \
     flang-469194 \
+    flang-471982 \
     flang-480581 \
     flang-485161 \
     flang-485265 \
@@ -30,7 +31,8 @@ TESTS_DIR = \
     mathdbl-tgt \
     mathquad-tgt \
     olcf-tf-7-loop-combined \
-    rocm-issue-842 \
+    rocm-aomp-issue-842 \
+    rocm-aomp-issue-1148 \
     split-dist-f90 \
     split-dist-par-c \
     split-dist-par-f90 \
