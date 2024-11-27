@@ -12,7 +12,7 @@ diff -Naur -x .git llvm-project.upstream/clang/include/clang/Basic/DiagnosticDri
  def err_drv_invalid_thread_model_for_target : Error<
    "invalid thread model '%0' in '%1' for this target">;
 diff -Naur -x .git llvm-project.upstream/clang/include/clang/Basic/DiagnosticGroups.td llvm-project/clang/include/clang/Basic/DiagnosticGroups.td
---- llvm-project.upstream/clang/include/clang/Basic/DiagnosticGroups.td	2024-11-26 11:41:40.306142392 -0500
+--- llvm-project.upstream/clang/include/clang/Basic/DiagnosticGroups.td	2024-11-27 14:11:53.431112247 -0500
 +++ llvm-project/clang/include/clang/Basic/DiagnosticGroups.td	2024-11-19 12:49:04.556151210 -0500
 @@ -1584,7 +1584,3 @@
  // Warnings about using the non-standard extension having an explicit specialization
@@ -23,7 +23,7 @@ diff -Naur -x .git llvm-project.upstream/clang/include/clang/Basic/DiagnosticGro
 -def ExperimentalOption : DiagGroup<"experimental-option">;
 -
 diff -Naur -x .git llvm-project.upstream/clang/include/clang/Driver/Options.td llvm-project/clang/include/clang/Driver/Options.td
---- llvm-project.upstream/clang/include/clang/Driver/Options.td	2024-11-26 11:41:40.315142360 -0500
+--- llvm-project.upstream/clang/include/clang/Driver/Options.td	2024-11-27 14:11:53.440112214 -0500
 +++ llvm-project/clang/include/clang/Driver/Options.td	2024-11-26 11:29:44.413641867 -0500
 @@ -6118,7 +6118,7 @@
  def _sysroot : Separate<["--"], "sysroot">, Alias<_sysroot_EQ>;
@@ -113,7 +113,7 @@ diff -Naur -x .git llvm-project.upstream/clang/lib/CodeGen/CGOpenMPRuntimeGPU.cp
            C.getLangOpts().OpenMPCUDAReductionBufNum, RTLoc);
    assert(AfterIP && "unexpected error creating GPU reductions");
 diff -Naur -x .git llvm-project.upstream/clang/lib/Driver/Driver.cpp llvm-project/clang/lib/Driver/Driver.cpp
---- llvm-project.upstream/clang/lib/Driver/Driver.cpp	2024-11-26 11:41:40.360142203 -0500
+--- llvm-project.upstream/clang/lib/Driver/Driver.cpp	2024-11-27 14:11:53.483112054 -0500
 +++ llvm-project/clang/lib/Driver/Driver.cpp	2024-11-26 11:29:44.481641631 -0500
 @@ -2028,7 +2028,7 @@
  
@@ -138,7 +138,7 @@ diff -Naur -x .git llvm-project.upstream/clang/lib/Driver/ToolChain.cpp llvm-pro
    };
  
 diff -Naur -x .git llvm-project.upstream/clang/lib/Driver/ToolChains/Clang.cpp llvm-project/clang/lib/Driver/ToolChains/Clang.cpp
---- llvm-project.upstream/clang/lib/Driver/ToolChains/Clang.cpp	2024-11-26 11:41:40.363142192 -0500
+--- llvm-project.upstream/clang/lib/Driver/ToolChains/Clang.cpp	2024-11-27 14:11:53.485112046 -0500
 +++ llvm-project/clang/lib/Driver/ToolChains/Clang.cpp	2024-11-26 11:29:44.485641618 -0500
 @@ -8902,7 +8902,9 @@
    assert(Input.isFilename() && "Invalid input.");
@@ -152,7 +152,7 @@ diff -Naur -x .git llvm-project.upstream/clang/lib/Driver/ToolChains/Clang.cpp l
      // Invoke cc1as directly in this process.
      C.addCommand(std::make_unique<CC1Command>(
 diff -Naur -x .git llvm-project.upstream/clang/lib/Driver/ToolChains/Flang.cpp llvm-project/clang/lib/Driver/ToolChains/Flang.cpp
---- llvm-project.upstream/clang/lib/Driver/ToolChains/Flang.cpp	2024-11-26 11:41:40.364142188 -0500
+--- llvm-project.upstream/clang/lib/Driver/ToolChains/Flang.cpp	2024-11-27 14:11:53.486112043 -0500
 +++ llvm-project/clang/lib/Driver/ToolChains/Flang.cpp	2024-11-19 12:49:04.676150836 -0500
 @@ -120,7 +120,9 @@
                     options::OPT_fintrinsic_modules_path, options::OPT_pedantic,
@@ -4956,7 +4956,7 @@ diff -Naur -x .git llvm-project.upstream/flang/include/flang/Lower/OpenMP/Utils.
 +
 +#endif // FORTRAN_LOWER_OPENMPUTILS_H
 diff -Naur -x .git llvm-project.upstream/flang/include/flang/Optimizer/Analysis/AliasAnalysis.h llvm-project/flang/include/flang/Optimizer/Analysis/AliasAnalysis.h
---- llvm-project.upstream/flang/include/flang/Optimizer/Analysis/AliasAnalysis.h	2024-11-26 11:41:40.446141901 -0500
+--- llvm-project.upstream/flang/include/flang/Optimizer/Analysis/AliasAnalysis.h	2024-11-27 14:11:53.579111697 -0500
 +++ llvm-project/flang/include/flang/Optimizer/Analysis/AliasAnalysis.h	2024-11-19 12:49:05.143149381 -0500
 @@ -67,7 +67,7 @@
    //  end subroutine
@@ -5307,7 +5307,7 @@ diff -Naur -x .git llvm-project.upstream/flang/include/flang/Tools/CrossToolHelp
    std::vector<llvm::Triple> OMPTargetTriples = {};
    bool NoGPULib = false;
 diff -Naur -x .git llvm-project.upstream/flang/lib/Frontend/CompilerInvocation.cpp llvm-project/flang/lib/Frontend/CompilerInvocation.cpp
---- llvm-project.upstream/flang/lib/Frontend/CompilerInvocation.cpp	2024-11-26 11:41:40.450141887 -0500
+--- llvm-project.upstream/flang/lib/Frontend/CompilerInvocation.cpp	2024-11-27 14:11:53.582111686 -0500
 +++ llvm-project/flang/lib/Frontend/CompilerInvocation.cpp	2024-11-19 12:49:05.154149347 -0500
 @@ -66,8 +66,8 @@
  static bool parseShowColorsArgs(const llvm::opt::ArgList &args,
@@ -5480,7 +5480,7 @@ diff -Naur -x .git llvm-project.upstream/flang/lib/Lower/DirectivesCommon.h llvm
          asFortran << ':';
          Fortran::semantics::MaybeExpr upper =
 diff -Naur -x .git llvm-project.upstream/flang/lib/Lower/OpenMP/ClauseProcessor.cpp llvm-project/flang/lib/Lower/OpenMP/ClauseProcessor.cpp
---- llvm-project.upstream/flang/lib/Lower/OpenMP/ClauseProcessor.cpp	2024-11-26 11:41:40.453141876 -0500
+--- llvm-project.upstream/flang/lib/Lower/OpenMP/ClauseProcessor.cpp	2024-11-27 14:11:53.585111675 -0500
 +++ llvm-project/flang/lib/Lower/OpenMP/ClauseProcessor.cpp	2024-11-26 11:29:44.614641171 -0500
 @@ -11,8 +11,8 @@
  //===----------------------------------------------------------------------===//
@@ -5511,7 +5511,7 @@ diff -Naur -x .git llvm-project.upstream/flang/lib/Lower/OpenMP/ClauseProcessor.
  #include "flang/Parser/dump-parse-tree.h"
  #include "flang/Parser/parse-tree.h"
 diff -Naur -x .git llvm-project.upstream/flang/lib/Lower/OpenMP/Clauses.cpp llvm-project/flang/lib/Lower/OpenMP/Clauses.cpp
---- llvm-project.upstream/flang/lib/Lower/OpenMP/Clauses.cpp	2024-11-26 11:41:40.453141876 -0500
+--- llvm-project.upstream/flang/lib/Lower/OpenMP/Clauses.cpp	2024-11-27 14:11:53.585111675 -0500
 +++ llvm-project/flang/lib/Lower/OpenMP/Clauses.cpp	2024-11-26 11:29:44.614641171 -0500
 @@ -6,7 +6,7 @@
  //
@@ -5523,7 +5523,7 @@ diff -Naur -x .git llvm-project.upstream/flang/lib/Lower/OpenMP/Clauses.cpp llvm
  #include "flang/Common/idioms.h"
  #include "flang/Evaluate/expression.h"
 diff -Naur -x .git llvm-project.upstream/flang/lib/Lower/OpenMP/Clauses.h llvm-project/flang/lib/Lower/OpenMP/Clauses.h
---- llvm-project.upstream/flang/lib/Lower/OpenMP/Clauses.h	2024-11-26 11:41:40.453141876 -0500
+--- llvm-project.upstream/flang/lib/Lower/OpenMP/Clauses.h	2024-11-27 14:11:53.585111675 -0500
 +++ llvm-project/flang/lib/Lower/OpenMP/Clauses.h	1969-12-31 19:00:00.000000000 -0500
 @@ -1,330 +0,0 @@
 -//===-- Clauses.h -- OpenMP clause handling -------------------------------===//
@@ -6013,8 +6013,8 @@ diff -Naur -x .git llvm-project.upstream/flang/lib/Lower/OpenMP/Decomposer.h llv
  #include "llvm/Frontend/OpenMP/ConstructDecompositionT.h"
  #include "llvm/Frontend/OpenMP/OMP.h"
 diff -Naur -x .git llvm-project.upstream/flang/lib/Lower/OpenMP/OpenMP.cpp llvm-project/flang/lib/Lower/OpenMP/OpenMP.cpp
---- llvm-project.upstream/flang/lib/Lower/OpenMP/OpenMP.cpp	2024-11-26 11:41:40.454141873 -0500
-+++ llvm-project/flang/lib/Lower/OpenMP/OpenMP.cpp	2024-11-26 11:29:44.615641167 -0500
+--- llvm-project.upstream/flang/lib/Lower/OpenMP/OpenMP.cpp	2024-11-27 14:11:53.586111672 -0500
++++ llvm-project/flang/lib/Lower/OpenMP/OpenMP.cpp	2024-11-27 14:06:37.028278666 -0500
 @@ -13,16 +13,16 @@
  #include "flang/Lower/OpenMP.h"
  
@@ -6225,7 +6225,7 @@ diff -Naur -x .git llvm-project.upstream/flang/lib/Lower/OpenMP/OpenMP.cpp llvm-
    bindPrivateLike(args.inReduction.syms, args.inReduction.vars,
                    op.getInReductionBlockArgs());
    bindMapLike(args.map.syms, op.getMapBlockArgs());
-@@ -257,6 +401,246 @@
+@@ -257,6 +401,244 @@
    });
  }
  
@@ -6406,7 +6406,6 @@ diff -Naur -x .git llvm-project.upstream/flang/lib/Lower/OpenMP/OpenMP.cpp llvm-
 +    HostEvalInfo &hostInfo = hostEvalInfo.back();
 +
 +    switch (extractOmpDirective(*ompEval)) {
-+    // Cases where 'teams' and target SPMD clauses might be present.
 +    case OMPD_teams_distribute_parallel_do:
 +    case OMPD_teams_distribute_parallel_do_simd:
 +      cp.processThreadLimit(stmtCtx, hostInfo.ops);
@@ -6417,39 +6416,38 @@ diff -Naur -x .git llvm-project.upstream/flang/lib/Lower/OpenMP/OpenMP.cpp llvm-
 +      [[fallthrough]];
 +    case OMPD_distribute_parallel_do:
 +    case OMPD_distribute_parallel_do_simd:
-+      cp.processCollapse(loc, eval, hostInfo.ops, hostInfo.iv);
 +      cp.processNumThreads(stmtCtx, hostInfo.ops);
++      [[fallthrough]];
++    case OMPD_distribute:
++    case OMPD_distribute_simd:
++      cp.processCollapse(loc, eval, hostInfo.ops, hostInfo.iv);
 +      break;
 +
-+    // Cases where 'teams' clauses might be present, and target SPMD is
-+    // possible by looking at nested evaluations.
 +    case OMPD_teams:
 +      cp.processThreadLimit(stmtCtx, hostInfo.ops);
 +      [[fallthrough]];
 +    case OMPD_target_teams:
 +      cp.processNumTeams(stmtCtx, hostInfo.ops);
-+      processSingleNestedIf([](Directive nestedDir) {
-+        return nestedDir == OMPD_distribute_parallel_do ||
-+               nestedDir == OMPD_distribute_parallel_do_simd;
-+      });
++      processSingleNestedIf(
++          [](Directive nestedDir) { return topDistributeSet.test(nestedDir); });
 +      break;
 +
-+    // Cases where only 'teams' host-evaluated clauses might be present.
 +    case OMPD_teams_distribute:
 +    case OMPD_teams_distribute_simd:
 +      cp.processThreadLimit(stmtCtx, hostInfo.ops);
 +      [[fallthrough]];
 +    case OMPD_target_teams_distribute:
 +    case OMPD_target_teams_distribute_simd:
++      cp.processCollapse(loc, eval, hostInfo.ops, hostInfo.iv);
 +      cp.processNumTeams(stmtCtx, hostInfo.ops);
 +      break;
 +
 +    // Standalone 'target' case.
-+    case OMPD_target: {
++    case OMPD_target:
 +      processSingleNestedIf(
 +          [](Directive nestedDir) { return topTeamsSet.test(nestedDir); });
 +      break;
-+    }
++
 +    default:
 +      break;
 +    }
@@ -6472,7 +6470,7 @@ diff -Naur -x .git llvm-project.upstream/flang/lib/Lower/OpenMP/OpenMP.cpp llvm-
  static lower::pft::Evaluation *
  getCollapsedLoopEval(lower::pft::Evaluation &eval, int collapseValue) {
    // Return the Evaluation of the innermost collapsed loop, or the current one
-@@ -639,11 +1023,11 @@
+@@ -639,11 +1021,11 @@
  
    llvm::SmallVector<mlir::Type> types;
    llvm::SmallVector<mlir::Location> locs;
@@ -6489,7 +6487,7 @@ diff -Naur -x .git llvm-project.upstream/flang/lib/Lower/OpenMP/OpenMP.cpp llvm-
    types.reserve(numVars);
    locs.reserve(numVars);
  
-@@ -656,6 +1040,7 @@
+@@ -656,6 +1038,7 @@
  
    // Populate block arguments in clause name alphabetical order to match
    // expected order by the BlockArgOpenMPOpInterface.
@@ -6497,7 +6495,7 @@ diff -Naur -x .git llvm-project.upstream/flang/lib/Lower/OpenMP/OpenMP.cpp llvm-
    extractTypeLoc(args.inReduction.vars);
    extractTypeLoc(args.map.vars);
    extractTypeLoc(args.priv.vars);
-@@ -784,6 +1169,7 @@
+@@ -784,6 +1167,7 @@
      firOpBuilder.createBlock(&op.getRegion(0));
      return {};
    }();
@@ -6505,7 +6503,7 @@ diff -Naur -x .git llvm-project.upstream/flang/lib/Lower/OpenMP/OpenMP.cpp llvm-
    // Mark the earliest insertion point.
    mlir::Operation *marker = insertMarker(firOpBuilder);
  
-@@ -806,6 +1192,7 @@
+@@ -806,6 +1190,7 @@
      tempDsp.emplace(info.converter, info.semaCtx, *info.clauses, info.eval,
                      Fortran::lower::omp::isLastItemInQueue(item, queue));
      tempDsp->processStep1();
@@ -6513,7 +6511,7 @@ diff -Naur -x .git llvm-project.upstream/flang/lib/Lower/OpenMP/OpenMP.cpp llvm-
    }
  
    if (info.dir == llvm::omp::Directive::OMPD_parallel) {
-@@ -895,14 +1282,14 @@
+@@ -895,14 +1280,14 @@
  
        if (!info.dsp) {
          assert(tempDsp.has_value());
@@ -6530,7 +6528,7 @@ diff -Naur -x .git llvm-project.upstream/flang/lib/Lower/OpenMP/OpenMP.cpp llvm-
        }
      }
    }
-@@ -997,7 +1384,13 @@
+@@ -997,7 +1382,13 @@
  
    mlir::Region &region = targetOp.getRegion();
    mlir::Block *entryBlock = genEntryBlock(converter, args, region);
@@ -6544,7 +6542,7 @@ diff -Naur -x .git llvm-project.upstream/flang/lib/Lower/OpenMP/OpenMP.cpp llvm-
  
    // Check if cloning the bounds introduced any dependency on the outer region.
    // If so, then either clone them as well if they are MemoryEffectFree, or else
-@@ -1008,9 +1401,11 @@
+@@ -1008,9 +1399,11 @@
    while (!valuesDefinedAbove.empty()) {
      for (mlir::Value val : valuesDefinedAbove) {
        mlir::Operation *valOp = val.getDefiningOp();
@@ -6556,7 +6554,7 @@ diff -Naur -x .git llvm-project.upstream/flang/lib/Lower/OpenMP/OpenMP.cpp llvm-
          val.replaceUsesWithIf(clonedOp->getResult(0),
                                [entryBlock](mlir::OpOperand &use) {
                                  return use.getOwner()->getBlock() == entryBlock;
-@@ -1096,7 +1491,7 @@
+@@ -1096,7 +1489,7 @@
      genNestedEvaluations(converter, eval);
    }
  
@@ -6565,7 +6563,7 @@ diff -Naur -x .git llvm-project.upstream/flang/lib/Lower/OpenMP/OpenMP.cpp llvm-
  }
  
  template <typename OpTy, typename... Args>
-@@ -1173,7 +1568,10 @@
+@@ -1173,7 +1566,10 @@
                     mlir::Location loc, mlir::omp::LoopNestOperands &clauseOps,
                     llvm::SmallVectorImpl<const semantics::Symbol *> &iv) {
    ClauseProcessor cp(converter, semaCtx, clauses);
@@ -6577,7 +6575,7 @@ diff -Naur -x .git llvm-project.upstream/flang/lib/Lower/OpenMP/OpenMP.cpp llvm-
    clauseOps.loopInclusive = converter.getFirOpBuilder().getUnitAttr();
  }
  
-@@ -1215,7 +1613,10 @@
+@@ -1215,7 +1611,10 @@
    ClauseProcessor cp(converter, semaCtx, clauses);
    cp.processAllocate(clauseOps);
    cp.processIf(llvm::omp::Directive::OMPD_parallel, clauseOps);
@@ -6589,7 +6587,7 @@ diff -Naur -x .git llvm-project.upstream/flang/lib/Lower/OpenMP/OpenMP.cpp llvm-
    cp.processProcBind(clauseOps);
    cp.processReduction(loc, clauseOps, reductionSyms);
  }
-@@ -1257,13 +1658,12 @@
+@@ -1257,13 +1656,12 @@
    cp.processAllocate(clauseOps);
    cp.processCopyprivate(loc, clauseOps);
    cp.processNowait(clauseOps);
@@ -6605,7 +6603,7 @@ diff -Naur -x .git llvm-project.upstream/flang/lib/Lower/OpenMP/OpenMP.cpp llvm-
      mlir::omp::TargetOperands &clauseOps,
      llvm::SmallVectorImpl<const semantics::Symbol *> &hasDeviceAddrSyms,
      llvm::SmallVectorImpl<const semantics::Symbol *> &isDevicePtrSyms,
-@@ -1272,22 +1672,27 @@
+@@ -1272,22 +1670,27 @@
    cp.processDepend(clauseOps);
    cp.processDevice(stmtCtx, clauseOps);
    cp.processHasDeviceAddr(clauseOps, hasDeviceAddrSyms);
@@ -6639,7 +6637,7 @@ diff -Naur -x .git llvm-project.upstream/flang/lib/Lower/OpenMP/OpenMP.cpp llvm-
  }
  
  static void genTargetDataClauses(
-@@ -1347,7 +1752,6 @@
+@@ -1347,7 +1750,6 @@
    cp.processMergeable(clauseOps);
    cp.processPriority(stmtCtx, clauseOps);
    cp.processUntied(clauseOps);
@@ -6647,7 +6645,7 @@ diff -Naur -x .git llvm-project.upstream/flang/lib/Lower/OpenMP/OpenMP.cpp llvm-
  
    cp.processTODO<clause::Affinity, clause::Detach, clause::InReduction,
                   clause::Mergeable>(loc, llvm::omp::Directive::OMPD_task);
-@@ -1381,19 +1785,21 @@
+@@ -1381,19 +1783,21 @@
    cp.processNowait(clauseOps);
  }
  
@@ -6678,7 +6676,7 @@ diff -Naur -x .git llvm-project.upstream/flang/lib/Lower/OpenMP/OpenMP.cpp llvm-
  }
  
  static void genWsloopClauses(
-@@ -1478,6 +1884,7 @@
+@@ -1478,6 +1882,7 @@
          std::pair<mlir::omp::BlockArgOpenMPOpInterface, const EntryBlockArgs &>>
          wrapperArgs,
      llvm::omp::Directive directive, DataSharingProcessor &dsp) {
@@ -6686,7 +6684,7 @@ diff -Naur -x .git llvm-project.upstream/flang/lib/Lower/OpenMP/OpenMP.cpp llvm-
    auto ivCallback = [&](mlir::Operation *op) {
      genLoopVars(op, converter, loc, iv, wrapperArgs);
      return llvm::SmallVector<const semantics::Symbol *>(iv);
-@@ -1486,13 +1893,15 @@
+@@ -1486,13 +1891,15 @@
    auto *nestedEval =
        getCollapsedLoopEval(eval, getCollapseValue(item->clauses));
  
@@ -6703,7 +6701,7 @@ diff -Naur -x .git llvm-project.upstream/flang/lib/Lower/OpenMP/OpenMP.cpp llvm-
  }
  
  static void genLoopOp(lower::AbstractConverter &converter,
-@@ -1509,7 +1918,8 @@
+@@ -1509,7 +1916,8 @@
    DataSharingProcessor dsp(converter, semaCtx, item->clauses, eval,
                             /*shouldCollectPreDeterminedSymbols=*/true,
                             /*useDelayedPrivatization=*/true, &symTable);
@@ -6713,7 +6711,7 @@ diff -Naur -x .git llvm-project.upstream/flang/lib/Lower/OpenMP/OpenMP.cpp llvm-
  
    mlir::omp::LoopNestOperands loopNestClauseOps;
    llvm::SmallVector<const semantics::Symbol *> iv;
-@@ -1631,6 +2041,8 @@
+@@ -1631,6 +2039,8 @@
    DataSharingProcessor dsp(converter, semaCtx, item->clauses, eval,
                             lower::omp::isLastItemInQueue(item, queue));
    dsp.processStep1();
@@ -6722,7 +6720,7 @@ diff -Naur -x .git llvm-project.upstream/flang/lib/Lower/OpenMP/OpenMP.cpp llvm-
  
    List<Clause> nonDsaClauses;
    List<const clause::Lastprivate *> lastprivates;
-@@ -1687,8 +2099,8 @@
+@@ -1687,8 +2097,8 @@
      }
  
      ConstructQueue sectionQueue{buildConstructQueue(
@@ -6733,7 +6731,7 @@ diff -Naur -x .git llvm-project.upstream/flang/lib/Lower/OpenMP/OpenMP.cpp llvm-
  
      builder.setInsertionPoint(terminator);
      genOpWithBody<mlir::omp::SectionOp>(
-@@ -1724,7 +2136,7 @@
+@@ -1724,7 +2134,7 @@
  
    // Perform DataSharingProcessor's step2 out of SECTIONS
    builder.setInsertionPointAfter(sectionsOp.getOperation());
@@ -6742,7 +6740,7 @@ diff -Naur -x .git llvm-project.upstream/flang/lib/Lower/OpenMP/OpenMP.cpp llvm-
    // Emit implicit barrier to synchronize threads and avoid data
    // races on post-update of lastprivate variables when `nowait`
    // clause is present.
-@@ -1765,23 +2177,27 @@
+@@ -1765,23 +2175,27 @@
              ConstructQueue::const_iterator item) {
    fir::FirOpBuilder &firOpBuilder = converter.getFirOpBuilder();
    lower::StatementContext stmtCtx;
@@ -6779,7 +6777,7 @@ diff -Naur -x .git llvm-project.upstream/flang/lib/Lower/OpenMP/OpenMP.cpp llvm-
  
    // 5.8.1 Implicit Data-Mapping Attribute Rules
    // The following code follows the implicit data-mapping rules to map all the
-@@ -1805,84 +2221,83 @@
+@@ -1805,84 +2219,83 @@
        if (llvm::is_contained(mapSyms, common))
          return;
  
@@ -6933,7 +6931,7 @@ diff -Naur -x .git llvm-project.upstream/flang/lib/Lower/OpenMP/OpenMP.cpp llvm-
    };
    lower::pft::visitAllSymbols(eval, captureImplicitMap);
  
-@@ -1892,6 +2307,7 @@
+@@ -1892,6 +2305,7 @@
    extractMappedBaseValues(clauseOps.mapVars, mapBaseValues);
  
    EntryBlockArgs args;
@@ -6941,7 +6939,7 @@ diff -Naur -x .git llvm-project.upstream/flang/lib/Lower/OpenMP/OpenMP.cpp llvm-
    // TODO: Add in_reduction syms and vars.
    args.map.syms = mapSyms;
    args.map.vars = mapBaseValues;
-@@ -1900,6 +2316,10 @@
+@@ -1900,6 +2314,10 @@
  
    genBodyOfTargetOp(converter, symTable, semaCtx, eval, targetOp, args, loc,
                      queue, item, dsp);
@@ -6952,7 +6950,7 @@ diff -Naur -x .git llvm-project.upstream/flang/lib/Lower/OpenMP/OpenMP.cpp llvm-
    return targetOp;
  }
  
-@@ -1982,7 +2402,8 @@
+@@ -1982,7 +2400,8 @@
    DataSharingProcessor dsp(converter, semaCtx, item->clauses, eval,
                             lower::omp::isLastItemInQueue(item, queue),
                             /*useDelayedPrivatization=*/true, &symTable);
@@ -6962,7 +6960,7 @@ diff -Naur -x .git llvm-project.upstream/flang/lib/Lower/OpenMP/OpenMP.cpp llvm-
  
    EntryBlockArgs taskArgs;
    taskArgs.priv.syms = dsp.getDelayedPrivSymbols();
-@@ -2066,14 +2487,33 @@
+@@ -2066,14 +2485,33 @@
             mlir::Location loc, const ConstructQueue &queue,
             ConstructQueue::const_iterator item) {
    lower::StatementContext stmtCtx;
@@ -6999,7 +6997,7 @@ diff -Naur -x .git llvm-project.upstream/flang/lib/Lower/OpenMP/OpenMP.cpp llvm-
  }
  
  //===----------------------------------------------------------------------===//
-@@ -2097,7 +2537,8 @@
+@@ -2097,7 +2535,8 @@
    DataSharingProcessor dsp(converter, semaCtx, item->clauses, eval,
                             /*shouldCollectPreDeterminedSymbols=*/true,
                             enableDelayedPrivatizationStaging, &symTable);
@@ -7009,7 +7007,7 @@ diff -Naur -x .git llvm-project.upstream/flang/lib/Lower/OpenMP/OpenMP.cpp llvm-
  
    mlir::omp::LoopNestOperands loopNestClauseOps;
    llvm::SmallVector<const semantics::Symbol *> iv;
-@@ -2122,7 +2563,6 @@
+@@ -2122,7 +2561,6 @@
                              const ConstructQueue &queue,
                              ConstructQueue::const_iterator item) {
    lower::StatementContext stmtCtx;
@@ -7017,7 +7015,7 @@ diff -Naur -x .git llvm-project.upstream/flang/lib/Lower/OpenMP/OpenMP.cpp llvm-
    mlir::omp::WsloopOperands wsloopClauseOps;
    llvm::SmallVector<const semantics::Symbol *> wsloopReductionSyms;
    genWsloopClauses(converter, semaCtx, stmtCtx, item->clauses, loc,
-@@ -2133,6 +2573,7 @@
+@@ -2133,6 +2571,7 @@
                             /*shouldCollectPreDeterminedSymbols=*/true,
                             /*useDelayedPrivatization=*/false, &symTable);
    dsp.processStep1();
@@ -7025,7 +7023,7 @@ diff -Naur -x .git llvm-project.upstream/flang/lib/Lower/OpenMP/OpenMP.cpp llvm-
  
    mlir::omp::LoopNestOperands loopNestClauseOps;
    llvm::SmallVector<const semantics::Symbol *> iv;
-@@ -2170,7 +2611,8 @@
+@@ -2170,7 +2609,8 @@
      dsp.emplace(converter, semaCtx, item->clauses, eval,
                  lower::omp::isLastItemInQueue(item, queue),
                  /*useDelayedPrivatization=*/true, &symTable);
@@ -7035,7 +7033,7 @@ diff -Naur -x .git llvm-project.upstream/flang/lib/Lower/OpenMP/OpenMP.cpp llvm-
    }
  
    EntryBlockArgs parallelArgs;
-@@ -2181,7 +2623,8 @@
+@@ -2181,7 +2621,8 @@
    parallelArgs.reduction.vars = parallelClauseOps.reductionVars;
    genParallelOp(converter, symTable, semaCtx, eval, loc, queue, item,
                  parallelClauseOps, parallelArgs,
@@ -7045,7 +7043,7 @@ diff -Naur -x .git llvm-project.upstream/flang/lib/Lower/OpenMP/OpenMP.cpp llvm-
  }
  
  static void genStandaloneSimd(lower::AbstractConverter &converter,
-@@ -2200,6 +2643,7 @@
+@@ -2200,6 +2641,7 @@
                             /*shouldCollectPreDeterminedSymbols=*/true,
                             /*useDelayedPrivatization=*/false, &symTable);
    dsp.processStep1();
@@ -7053,7 +7051,7 @@ diff -Naur -x .git llvm-project.upstream/flang/lib/Lower/OpenMP/OpenMP.cpp llvm-
  
    mlir::omp::LoopNestOperands loopNestClauseOps;
    llvm::SmallVector<const semantics::Symbol *> iv;
-@@ -2253,7 +2697,8 @@
+@@ -2253,7 +2695,8 @@
    DataSharingProcessor dsp(converter, semaCtx, doItem->clauses, eval,
                             /*shouldCollectPreDeterminedSymbols=*/true,
                             /*useDelayedPrivatization=*/true, &symTable);
@@ -7063,7 +7061,7 @@ diff -Naur -x .git llvm-project.upstream/flang/lib/Lower/OpenMP/OpenMP.cpp llvm-
  
    EntryBlockArgs parallelArgs;
    parallelArgs.priv.syms = dsp.getDelayedPrivSymbols();
-@@ -2321,7 +2766,8 @@
+@@ -2321,7 +2764,8 @@
    DataSharingProcessor dsp(converter, semaCtx, simdItem->clauses, eval,
                             /*shouldCollectPreDeterminedSymbols=*/true,
                             /*useDelayedPrivatization=*/true, &symTable);
@@ -7073,7 +7071,7 @@ diff -Naur -x .git llvm-project.upstream/flang/lib/Lower/OpenMP/OpenMP.cpp llvm-
  
    EntryBlockArgs parallelArgs;
    parallelArgs.priv.syms = dsp.getDelayedPrivSymbols();
-@@ -2410,6 +2856,7 @@
+@@ -2410,6 +2854,7 @@
                             /*shouldCollectPreDeterminedSymbols=*/true,
                             /*useDelayedPrivatization=*/false, &symTable);
    dsp.processStep1();
@@ -7081,7 +7079,7 @@ diff -Naur -x .git llvm-project.upstream/flang/lib/Lower/OpenMP/OpenMP.cpp llvm-
  
    // Pass the innermost leaf construct's clauses because that's where COLLAPSE
    // is placed by construct decomposition.
-@@ -2467,6 +2914,7 @@
+@@ -2467,6 +2912,7 @@
                             /*shouldCollectPreDeterminedSymbols=*/true,
                             /*useDelayedPrivatization=*/false, &symTable);
    dsp.processStep1();
@@ -7089,7 +7087,7 @@ diff -Naur -x .git llvm-project.upstream/flang/lib/Lower/OpenMP/OpenMP.cpp llvm-
  
    // Pass the innermost leaf construct's clauses because that's where COLLAPSE
    // is placed by construct decomposition.
-@@ -3019,6 +3467,7 @@
+@@ -3019,6 +3465,7 @@
    ConstructQueue queue{
        buildConstructQueue(converter.getFirOpBuilder().getModule(), semaCtx,
                            eval, source, directive, clauses)};
@@ -7097,7 +7095,7 @@ diff -Naur -x .git llvm-project.upstream/flang/lib/Lower/OpenMP/OpenMP.cpp llvm-
    genOMPDispatch(converter, symTable, semaCtx, eval, currentLocation, queue,
                   queue.begin());
  }
-@@ -3044,6 +3493,7 @@
+@@ -3044,6 +3491,7 @@
        std::get<parser::OmpSectionBlocks>(sectionsConstruct.t);
    clauses.append(makeClauses(
        std::get<parser::OmpClauseList>(endSectionsDirective.t), semaCtx));
@@ -10413,8 +10411,8 @@ diff -Naur -x .git llvm-project.upstream/flang/test/Lower/OpenMP/array-bounds.f9
  !HOST: %[[MAP:.*]] = omp.map.info var_ptr(%[[ARG0_DECL]]#1 : !fir.ref<!fir.array<?xi32>>, i32) map_clauses(tofrom) capture(ByRef) bounds(%[[BOUNDS]]) -> !fir.ref<!fir.array<?xi32>> {name = "arr_read_write(2:5)"}
 diff -Naur -x .git llvm-project.upstream/flang/test/Lower/OpenMP/eval-outside-target.f90 llvm-project/flang/test/Lower/OpenMP/eval-outside-target.f90
 --- llvm-project.upstream/flang/test/Lower/OpenMP/eval-outside-target.f90	1969-12-31 19:00:00.000000000 -0500
-+++ llvm-project/flang/test/Lower/OpenMP/eval-outside-target.f90	2024-11-19 12:49:05.207149182 -0500
-@@ -0,0 +1,157 @@
++++ llvm-project/flang/test/Lower/OpenMP/eval-outside-target.f90	2024-11-27 14:06:37.029278663 -0500
+@@ -0,0 +1,260 @@
 +! The "thread_limit" clause was added to the "target" construct in OpenMP 5.1.
 +! RUN: %flang_fc1 -emit-hlfir -fopenmp -fopenmp-version=51 %s -o - | FileCheck %s --check-prefixes=BOTH,HOST
 +! RUN: %flang_fc1 -emit-hlfir -fopenmp -fopenmp-version=51 -fopenmp-is-target-device %s -o - | FileCheck %s --check-prefixes=BOTH,DEVICE
@@ -10572,6 +10570,109 @@ diff -Naur -x .git llvm-project.upstream/flang/test/Lower/OpenMP/eval-outside-ta
 +  !$omp end distribute parallel do simd
 +  !$omp end teams
 +end subroutine distribute_parallel_do_simd
++
++! BOTH-LABEL: func.func @_QPdistribute
++subroutine distribute()
++  ! BOTH: omp.target
++  
++  ! HOST-SAME: host_eval(%{{.*}} -> %[[LB:.*]], %{{.*}} -> %[[UB:.*]], %{{.*}} -> %[[STEP:.*]] : i32, i32, i32)
++  
++  ! DEVICE-NOT: host_eval({{.*}})
++  ! DEVICE-SAME: {
++
++  ! BOTH: omp.teams
++  !$omp target teams
++
++  ! BOTH: omp.distribute
++  ! BOTH-NEXT: omp.loop_nest
++
++  ! HOST-SAME: (%{{.*}}) : i32 = (%[[LB]]) to (%[[UB]]) inclusive step (%[[STEP]])
++  !$omp distribute
++  do i=1,10
++    call foo()
++  end do
++  !$omp end distribute
++  !$omp end target teams
++
++  ! BOTH: omp.target
++  ! BOTH-NOT: host_eval({{.*}})
++  ! BOTH-SAME: {
++  ! BOTH: omp.teams
++  !$omp target teams
++  call foo() !< Prevents this from being Generic-SPMD.
++
++  ! BOTH: omp.distribute
++  !$omp distribute
++  do i=1,10
++    call foo()
++  end do
++  !$omp end distribute
++  !$omp end target teams
++
++  ! BOTH: omp.teams
++  !$omp teams
++
++  ! BOTH: omp.distribute
++  !$omp distribute
++  do i=1,10
++    call foo()
++  end do
++  !$omp end distribute
++  !$omp end teams
++end subroutine distribute
++
++! BOTH-LABEL: func.func @_QPdistribute_simd
++subroutine distribute_simd()
++  ! BOTH: omp.target
++  
++  ! HOST-SAME: host_eval(%{{.*}} -> %[[LB:.*]], %{{.*}} -> %[[UB:.*]], %{{.*}} -> %[[STEP:.*]] : i32, i32, i32)
++  
++  ! DEVICE-NOT: host_eval({{.*}})
++  ! DEVICE-SAME: {
++
++  ! BOTH: omp.teams
++  !$omp target teams
++
++  ! BOTH: omp.distribute
++  ! BOTH-NEXT: omp.simd
++  ! BOTH-NEXT: omp.loop_nest
++
++  ! HOST-SAME: (%{{.*}}) : i32 = (%[[LB]]) to (%[[UB]]) inclusive step (%[[STEP]])
++  !$omp distribute simd
++  do i=1,10
++    call foo()
++  end do
++  !$omp end distribute simd
++  !$omp end target teams
++
++  ! BOTH: omp.target
++  ! BOTH-NOT: host_eval({{.*}})
++  ! BOTH-SAME: {
++  ! BOTH: omp.teams
++  !$omp target teams
++  call foo() !< Prevents this from being Generic-SPMD.
++
++  ! BOTH: omp.distribute
++  ! BOTH-NEXT: omp.simd
++  !$omp distribute simd
++  do i=1,10
++    call foo()
++  end do
++  !$omp end distribute simd
++  !$omp end target teams
++
++  ! BOTH: omp.teams
++  !$omp teams
++
++  ! BOTH: omp.distribute
++  ! BOTH-NEXT: omp.simd
++  !$omp distribute simd
++  do i=1,10
++    call foo()
++  end do
++  !$omp end distribute simd
++  !$omp end teams
++end subroutine distribute_simd
 diff -Naur -x .git llvm-project.upstream/flang/test/Lower/OpenMP/FIR/mismatched-bound-types.f90 llvm-project/flang/test/Lower/OpenMP/FIR/mismatched-bound-types.f90
 --- llvm-project.upstream/flang/test/Lower/OpenMP/FIR/mismatched-bound-types.f90	1969-12-31 19:00:00.000000000 -0500
 +++ llvm-project/flang/test/Lower/OpenMP/FIR/mismatched-bound-types.f90	2024-11-19 12:49:05.205149188 -0500
@@ -11068,6 +11169,201 @@ diff -Naur -x .git llvm-project.upstream/flang/test/Lower/OpenMP/target.f90 llvm
  end subroutine omp_target_exit_mt
  
  !===============================================================================
+diff -Naur -x .git llvm-project.upstream/flang/test/Lower/OpenMP/target-generic-spmd.f90 llvm-project/flang/test/Lower/OpenMP/target-generic-spmd.f90
+--- llvm-project.upstream/flang/test/Lower/OpenMP/target-generic-spmd.f90	1969-12-31 19:00:00.000000000 -0500
++++ llvm-project/flang/test/Lower/OpenMP/target-generic-spmd.f90	2024-11-27 14:06:37.029278663 -0500
+@@ -0,0 +1,191 @@
++! RUN: %flang_fc1 -emit-hlfir -fopenmp %s -o - | FileCheck %s
++
++! CHECK-LABEL: func.func @_QPdistribute_generic() {
++subroutine distribute_generic()
++  ! CHECK: omp.target
++  ! CHECK-NOT: host_eval({{.*}})
++  ! CHECK-SAME: {
++  !$omp target
++  !$omp teams
++  !$omp distribute
++  do i = 1, 10
++    call foo(i)
++  end do
++  !$omp end distribute
++  call bar() !< Prevents this from being Generic-SPMD.
++  !$omp end teams
++  !$omp end target
++
++  ! CHECK: omp.target
++  ! CHECK-NOT: host_eval({{.*}})
++  ! CHECK-SAME: {
++  !$omp target teams
++  !$omp distribute
++  do i = 1, 10
++    call foo(i)
++  end do
++  !$omp end distribute
++  call bar() !< Prevents this from being Generic-SPMD.
++  !$omp end target teams
++
++  ! CHECK: omp.target
++  ! CHECK-NOT: host_eval({{.*}})
++  ! CHECK-SAME: {
++  !$omp target teams
++  !$omp distribute
++  do i = 1, 10
++    call foo(i)
++  end do
++  !$omp end distribute
++
++  !$omp distribute
++  do i = 1, 10
++    call foo(i)
++  end do
++  !$omp end distribute
++  !$omp end target teams
++end subroutine distribute_generic
++
++! CHECK-LABEL: func.func @_QPdistribute_spmd() {
++subroutine distribute_spmd()
++  ! CHECK: omp.target
++  ! CHECK-SAME: host_eval({{.*}})
++  !$omp target
++  !$omp teams
++  !$omp distribute
++  do i = 1, 10
++    call foo(i)
++  end do
++  !$omp end distribute
++  !$omp end teams
++  !$omp end target
++
++  ! CHECK: omp.target
++  ! CHECK-SAME: host_eval({{.*}})
++  !$omp target teams
++  !$omp distribute
++  do i = 1, 10
++    call foo(i)
++  end do
++  !$omp end distribute
++  !$omp end target teams
++end subroutine distribute_spmd
++
++! CHECK-LABEL: func.func @_QPdistribute_simd_generic() {
++subroutine distribute_simd_generic()
++  ! CHECK: omp.target
++  ! CHECK-NOT: host_eval({{.*}})
++  ! CHECK-SAME: {
++  !$omp target
++  !$omp teams
++  !$omp distribute simd
++  do i = 1, 10
++    call foo(i)
++  end do
++  !$omp end distribute simd
++  call bar() !< Prevents this from being Generic-SPMD.
++  !$omp end teams
++  !$omp end target
++
++  ! CHECK: omp.target
++  ! CHECK-NOT: host_eval({{.*}})
++  ! CHECK-SAME: {
++  !$omp target teams
++  !$omp distribute simd
++  do i = 1, 10
++    call foo(i)
++  end do
++  !$omp end distribute simd
++  call bar() !< Prevents this from being Generic-SPMD.
++  !$omp end target teams
++
++  ! CHECK: omp.target
++  ! CHECK-NOT: host_eval({{.*}})
++  ! CHECK-SAME: {
++  !$omp target teams
++  !$omp distribute simd
++  do i = 1, 10
++    call foo(i)
++  end do
++  !$omp end distribute simd
++
++  !$omp distribute simd
++  do i = 1, 10
++    call foo(i)
++  end do
++  !$omp end distribute simd
++  !$omp end target teams
++end subroutine distribute_simd_generic
++
++! CHECK-LABEL: func.func @_QPdistribute_simd_spmd() {
++subroutine distribute_simd_spmd()
++  ! CHECK: omp.target
++  ! CHECK-SAME: host_eval({{.*}})
++  !$omp target
++  !$omp teams
++  !$omp distribute simd
++  do i = 1, 10
++    call foo(i)
++  end do
++  !$omp end distribute simd
++  !$omp end teams
++  !$omp end target
++
++  ! CHECK: omp.target
++  ! CHECK-SAME: host_eval({{.*}})
++  !$omp target teams
++  !$omp distribute simd
++  do i = 1, 10
++    call foo(i)
++  end do
++  !$omp end distribute simd
++  !$omp end target teams
++end subroutine distribute_simd_spmd
++
++! CHECK-LABEL: func.func @_QPteams_distribute_spmd() {
++subroutine teams_distribute_spmd()
++  ! CHECK: omp.target
++  ! CHECK-SAME: host_eval({{.*}})
++  !$omp target
++  !$omp teams distribute
++  do i = 1, 10
++    call foo(i)
++  end do
++  !$omp end teams distribute
++  !$omp end target
++end subroutine teams_distribute_spmd
++
++! CHECK-LABEL: func.func @_QPteams_distribute_simd_spmd() {
++subroutine teams_distribute_simd_spmd()
++  ! CHECK: omp.target
++  ! CHECK-SAME: host_eval({{.*}})
++  !$omp target
++  !$omp teams distribute simd
++  do i = 1, 10
++    call foo(i)
++  end do
++  !$omp end teams distribute simd
++  !$omp end target
++end subroutine teams_distribute_simd_spmd
++
++! CHECK-LABEL: func.func @_QPtarget_teams_distribute_spmd() {
++subroutine target_teams_distribute_spmd()
++  ! CHECK: omp.target
++  ! CHECK-SAME: host_eval({{.*}})
++  !$omp target teams distribute
++  do i = 1, 10
++    call foo(i)
++  end do
++  !$omp end target teams distribute
++end subroutine target_teams_distribute_spmd
++
++! CHECK-LABEL: func.func @_QPtarget_teams_distribute_simd_spmd() {
++subroutine target_teams_distribute_simd_spmd()
++  ! CHECK: omp.target
++  ! CHECK-SAME: host_eval({{.*}})
++  !$omp target teams distribute simd
++  do i = 1, 10
++    call foo(i)
++  end do
++  !$omp end target teams distribute simd
++end subroutine target_teams_distribute_simd_spmd
 diff -Naur -x .git llvm-project.upstream/flang/test/Lower/OpenMP/target_private.f90 llvm-project/flang/test/Lower/OpenMP/target_private.f90
 --- llvm-project.upstream/flang/test/Lower/OpenMP/target_private.f90	1969-12-31 19:00:00.000000000 -0500
 +++ llvm-project/flang/test/Lower/OpenMP/target_private.f90	2024-11-19 12:49:05.211149169 -0500
@@ -11147,7 +11443,7 @@ diff -Naur -x .git llvm-project.upstream/flang/test/Lower/OpenMP/target_private.
 +end subroutine omp_target_target_do_simd
 diff -Naur -x .git llvm-project.upstream/flang/test/Lower/OpenMP/target-spmd.f90 llvm-project/flang/test/Lower/OpenMP/target-spmd.f90
 --- llvm-project.upstream/flang/test/Lower/OpenMP/target-spmd.f90	1969-12-31 19:00:00.000000000 -0500
-+++ llvm-project/flang/test/Lower/OpenMP/target-spmd.f90	2024-11-19 12:49:05.211149169 -0500
++++ llvm-project/flang/test/Lower/OpenMP/target-spmd.f90	2024-11-27 14:06:37.029278663 -0500
 @@ -0,0 +1,191 @@
 +! RUN: %flang_fc1 -emit-hlfir -fopenmp %s -o - | FileCheck %s
 +
@@ -11163,7 +11459,7 @@ diff -Naur -x .git llvm-project.upstream/flang/test/Lower/OpenMP/target-spmd.f90
 +    call foo(i)
 +  end do
 +  !$omp end distribute parallel do
-+  call bar()
++  call bar() !< Prevents this from being SPMD.
 +  !$omp end teams
 +  !$omp end target
 +
@@ -11176,7 +11472,7 @@ diff -Naur -x .git llvm-project.upstream/flang/test/Lower/OpenMP/target-spmd.f90
 +    call foo(i)
 +  end do
 +  !$omp end distribute parallel do
-+  call bar()
++  call bar() !< Prevents this from being SPMD.
 +  !$omp end target teams
 +
 +  ! CHECK: omp.target
@@ -11234,7 +11530,7 @@ diff -Naur -x .git llvm-project.upstream/flang/test/Lower/OpenMP/target-spmd.f90
 +    call foo(i)
 +  end do
 +  !$omp end distribute parallel do simd
-+  call bar()
++  call bar() !< Prevents this from being SPMD.
 +  !$omp end teams
 +  !$omp end target
 +
@@ -11247,7 +11543,7 @@ diff -Naur -x .git llvm-project.upstream/flang/test/Lower/OpenMP/target-spmd.f90
 +    call foo(i)
 +  end do
 +  !$omp end distribute parallel do simd
-+  call bar()
++  call bar() !< Prevents this from being SPMD.
 +  !$omp end target teams
 +
 +  ! CHECK: omp.target
@@ -11455,7 +11751,7 @@ diff -Naur -x .git llvm-project.upstream/flang/test/Lower/OpenMP/use-device-ptr-
 +    !$omp end target data
 +end subroutine
 diff -Naur -x .git llvm-project.upstream/flang/test/Semantics/OpenMP/combined-constructs.f90 llvm-project/flang/test/Semantics/OpenMP/combined-constructs.f90
---- llvm-project.upstream/flang/test/Semantics/OpenMP/combined-constructs.f90	2024-11-26 11:41:40.467141827 -0500
+--- llvm-project.upstream/flang/test/Semantics/OpenMP/combined-constructs.f90	2024-11-27 14:11:53.598111627 -0500
 +++ llvm-project/flang/test/Semantics/OpenMP/combined-constructs.f90	2024-11-26 11:29:44.631641112 -0500
 @@ -1,4 +1,4 @@
 -! RUN: %python %S/../test_errors.py %s %flang -fopenmp
@@ -12296,7 +12592,7 @@ diff -Naur -x .git llvm-project.upstream/flang/tools/f18/CMakeLists.txt llvm-pro
      add_custom_command(OUTPUT ${base}.f18.mod
        DEPENDS ${base}.mod
 diff -Naur -x .git llvm-project.upstream/flang/tools/flang-driver/CMakeLists.txt llvm-project/flang/tools/flang-driver/CMakeLists.txt
---- llvm-project.upstream/flang/tools/flang-driver/CMakeLists.txt	2024-11-26 11:41:40.467141827 -0500
+--- llvm-project.upstream/flang/tools/flang-driver/CMakeLists.txt	2024-11-27 14:11:53.598111627 -0500
 +++ llvm-project/flang/tools/flang-driver/CMakeLists.txt	2024-08-12 11:55:29.920279209 -0400
 @@ -11,38 +11,28 @@
    TargetParser
@@ -12395,7 +12691,7 @@ diff -Naur -x .git llvm-project.upstream/.github/workflows/release-binaries.yml 
          ninja -C ${{ steps.setup-stage.outputs.build-prefix }}/build/tools/clang/stage2-bins/ \
              mlir-bytecode-parser-fuzzer \
 diff -Naur -x .git llvm-project.upstream/llvm/include/llvm/Frontend/OpenMP/OMPIRBuilder.h llvm-project/llvm/include/llvm/Frontend/OpenMP/OMPIRBuilder.h
---- llvm-project.upstream/llvm/include/llvm/Frontend/OpenMP/OMPIRBuilder.h	2024-11-26 11:41:40.534141592 -0500
+--- llvm-project.upstream/llvm/include/llvm/Frontend/OpenMP/OMPIRBuilder.h	2024-11-27 14:11:53.668111367 -0500
 +++ llvm-project/llvm/include/llvm/Frontend/OpenMP/OMPIRBuilder.h	2024-11-19 12:49:05.668147745 -0500
 @@ -110,7 +110,8 @@
  
@@ -12631,7 +12927,7 @@ diff -Naur -x .git llvm-project.upstream/llvm/include/llvm/Frontend/OpenMP/OMPIR
        SmallVector<DependData> Dependencies = {}, bool HasNowait = false);
  
 diff -Naur -x .git llvm-project.upstream/llvm/lib/Frontend/OpenMP/OMPIRBuilder.cpp llvm-project/llvm/lib/Frontend/OpenMP/OMPIRBuilder.cpp
---- llvm-project.upstream/llvm/lib/Frontend/OpenMP/OMPIRBuilder.cpp	2024-11-26 11:41:40.589141399 -0500
+--- llvm-project.upstream/llvm/lib/Frontend/OpenMP/OMPIRBuilder.cpp	2024-11-27 14:11:53.727111148 -0500
 +++ llvm-project/llvm/lib/Frontend/OpenMP/OMPIRBuilder.cpp	2024-11-19 12:49:05.803147324 -0500
 @@ -154,6 +154,7 @@
    if (T.isAMDGPU()) {
@@ -13981,7 +14277,7 @@ diff -Naur -x .git llvm-project.upstream/llvm/unittests/Frontend/OpenMPIRBuilder
    IRBuilder<> Builder(BB);
 diff -Naur -x .git llvm-project.upstream/mlir/docs/Dialects/OpenMPDialect/_index.md llvm-project/mlir/docs/Dialects/OpenMPDialect/_index.md
 --- llvm-project.upstream/mlir/docs/Dialects/OpenMPDialect/_index.md	2024-11-19 12:55:03.094006419 -0500
-+++ llvm-project/mlir/docs/Dialects/OpenMPDialect/_index.md	2024-11-19 12:49:07.335142550 -0500
++++ llvm-project/mlir/docs/Dialects/OpenMPDialect/_index.md	2024-11-27 14:06:37.030278659 -0500
 @@ -297,7 +297,8 @@
  introduction of private copies of the same underlying variable defined outside
  the MLIR operation the clause is attached to. Currently, clauses with this
@@ -13992,7 +14288,7 @@ diff -Naur -x .git llvm-project.upstream/mlir/docs/Dialects/OpenMPDialect/_index
    - Reduction-like clauses: `in_reduction`, `reduction` and `task_reduction`.
    - Privatization clauses: `private`.
  
-@@ -522,3 +523,58 @@
+@@ -522,3 +523,59 @@
    omp.terminator
  } {omp.composite}
  ```
@@ -14016,9 +14312,10 @@ diff -Naur -x .git llvm-project.upstream/mlir/docs/Dialects/OpenMPDialect/_index
 +Additionally, the runtime library targeted by the MLIR to LLVM IR translation of
 +the OpenMP dialect supports the optimized launch of SPMD kernels (i.e.
 +`target teams distribute parallel {do,for}` in OpenMP), which requires
-+specifying in advance what the total trip count of the loop is. Consequently, it
-+is also beneficial to evaluate the trip count on the host device prior to the
-+kernel launch.
++specifying in advance what the total trip count of the loop is. This is also the
++case of Generic-SPMD kernels (i.e. `target teams distribute`). Consequently, it
++is also necessary to evaluate the trip count on the host device prior to the
++kernel launch in these cases.
 +
 +These host-evaluated values in MLIR would need to be placed outside of the
 +`omp.target` region and also attached to the corresponding nested operations,
@@ -14052,7 +14349,7 @@ diff -Naur -x .git llvm-project.upstream/mlir/docs/Dialects/OpenMPDialect/_index
 +}
 +```
 diff -Naur -x .git llvm-project.upstream/mlir/include/mlir/Conversion/Passes.td llvm-project/mlir/include/mlir/Conversion/Passes.td
---- llvm-project.upstream/mlir/include/mlir/Conversion/Passes.td	2024-11-26 11:41:40.959140101 -0500
+--- llvm-project.upstream/mlir/include/mlir/Conversion/Passes.td	2024-11-27 14:11:54.110109726 -0500
 +++ llvm-project/mlir/include/mlir/Conversion/Passes.td	2024-09-24 17:16:22.632860505 -0400
 @@ -754,7 +754,7 @@
  }
@@ -14127,6 +14424,17 @@ diff -Naur -x .git llvm-project.upstream/mlir/include/mlir/Dialect/OpenMP/OpenMP
  // V5.2: [3.4] `if` clause
  //===----------------------------------------------------------------------===//
  
+diff -Naur -x .git llvm-project.upstream/mlir/include/mlir/Dialect/OpenMP/OpenMPDialect.h llvm-project/mlir/include/mlir/Dialect/OpenMP/OpenMPDialect.h
+--- llvm-project.upstream/mlir/include/mlir/Dialect/OpenMP/OpenMPDialect.h	2024-07-09 19:05:26.974797574 -0400
++++ llvm-project/mlir/include/mlir/Dialect/OpenMP/OpenMPDialect.h	2024-11-27 14:06:37.030278659 -0500
+@@ -22,6 +22,7 @@
+ #include "mlir/IR/SymbolTable.h"
+ #include "mlir/Interfaces/ControlFlowInterfaces.h"
+ #include "mlir/Interfaces/SideEffectInterfaces.h"
++#include "llvm/Frontend/OpenMP/OMPDeviceConstants.h"
+ 
+ #define GET_TYPEDEF_CLASSES
+ #include "mlir/Dialect/OpenMP/OpenMPOpsTypes.h.inc"
 diff -Naur -x .git llvm-project.upstream/mlir/include/mlir/Dialect/OpenMP/OpenMPOpsInterfaces.td llvm-project/mlir/include/mlir/Dialect/OpenMP/OpenMPOpsInterfaces.td
 --- llvm-project.upstream/mlir/include/mlir/Dialect/OpenMP/OpenMPOpsInterfaces.td	2024-11-19 12:55:03.111006363 -0500
 +++ llvm-project/mlir/include/mlir/Dialect/OpenMP/OpenMPOpsInterfaces.td	2024-11-19 12:49:07.352142497 -0500
@@ -14189,7 +14497,7 @@ diff -Naur -x .git llvm-project.upstream/mlir/include/mlir/Dialect/OpenMP/OpenMP
                                   << " entry block argument(s)";
 diff -Naur -x .git llvm-project.upstream/mlir/include/mlir/Dialect/OpenMP/OpenMPOps.td llvm-project/mlir/include/mlir/Dialect/OpenMP/OpenMPOps.td
 --- llvm-project.upstream/mlir/include/mlir/Dialect/OpenMP/OpenMPOps.td	2024-11-26 11:37:22.329046428 -0500
-+++ llvm-project/mlir/include/mlir/Dialect/OpenMP/OpenMPOps.td	2024-11-26 11:29:45.183639200 -0500
++++ llvm-project/mlir/include/mlir/Dialect/OpenMP/OpenMPOps.td	2024-11-27 14:06:37.030278659 -0500
 @@ -1213,9 +1213,10 @@
    ], clauses = [
      // TODO: Complete clause list (defaultmap, uses_allocators).
@@ -14243,9 +14551,9 @@ diff -Naur -x .git llvm-project.upstream/mlir/include/mlir/Dialect/OpenMP/OpenMP
 +    /// operations, the top level one will be the one captured.
 +    Operation *getInnermostCapturedOmpOp();
 +
-+    /// Tells whether this target region represents a single worksharing loop
-+    /// wrapped by omp.teams omp.distribute and omp.parallel constructs.
-+    bool isTargetSPMDLoop();
++    /// Infers the kernel type (Generic, SPMD or Generic-SPMD) based on the
++    /// contents of the target region.
++    llvm::omp::OMPTgtExecModeFlags getKernelExecFlags();
    }] # clausesExtraClassDeclaration;
  
    let assemblyFormat = clausesAssemblyFormat # [{
@@ -14263,7 +14571,7 @@ diff -Naur -x .git llvm-project.upstream/mlir/include/mlir/Dialect/OpenMP/OpenMP
    let hasVerifier = 1;
 diff -Naur -x .git llvm-project.upstream/mlir/lib/Dialect/OpenMP/IR/OpenMPDialect.cpp llvm-project/mlir/lib/Dialect/OpenMP/IR/OpenMPDialect.cpp
 --- llvm-project.upstream/mlir/lib/Dialect/OpenMP/IR/OpenMPDialect.cpp	2024-11-26 11:37:22.342046383 -0500
-+++ llvm-project/mlir/lib/Dialect/OpenMP/IR/OpenMPDialect.cpp	2024-11-26 11:29:45.193639165 -0500
++++ llvm-project/mlir/lib/Dialect/OpenMP/IR/OpenMPDialect.cpp	2024-11-27 14:06:37.031278656 -0500
 @@ -20,7 +20,6 @@
  #include "mlir/IR/DialectImplementation.h"
  #include "mlir/IR/OpImplementation.h"
@@ -14272,7 +14580,15 @@ diff -Naur -x .git llvm-project.upstream/mlir/lib/Dialect/OpenMP/IR/OpenMPDialec
  
  #include "llvm/ADT/ArrayRef.h"
  #include "llvm/ADT/BitVector.h"
-@@ -502,6 +501,7 @@
+@@ -31,6 +30,7 @@
+ #include "llvm/ADT/StringRef.h"
+ #include "llvm/ADT/TypeSwitch.h"
+ #include "llvm/Frontend/OpenMP/OMPConstants.h"
++#include "llvm/Frontend/OpenMP/OMPDeviceConstants.h"
+ #include <cstddef>
+ #include <iterator>
+ #include <optional>
+@@ -502,6 +502,7 @@
        : vars(vars), types(types), byref(byref), syms(syms) {}
  };
  struct AllRegionParseArgs {
@@ -14280,7 +14596,7 @@ diff -Naur -x .git llvm-project.upstream/mlir/lib/Dialect/OpenMP/IR/OpenMPDialec
    std::optional<ReductionParseArgs> inReductionArgs;
    std::optional<MapParseArgs> mapArgs;
    std::optional<PrivateParseArgs> privateArgs;
-@@ -628,6 +628,11 @@
+@@ -628,6 +629,11 @@
                                         AllRegionParseArgs args) {
    llvm::SmallVector<OpAsmParser::Argument> entryBlockArgs;
  
@@ -14292,7 +14608,7 @@ diff -Naur -x .git llvm-project.upstream/mlir/lib/Dialect/OpenMP/IR/OpenMPDialec
    if (failed(parseBlockArgClause(parser, entryBlockArgs, "in_reduction",
                                   args.inReductionArgs)))
      return parser.emitError(parser.getCurrentLocation())
-@@ -666,8 +671,10 @@
+@@ -666,8 +672,10 @@
    return parser.parseRegion(region, entryBlockArgs);
  }
  
@@ -14304,7 +14620,7 @@ diff -Naur -x .git llvm-project.upstream/mlir/lib/Dialect/OpenMP/IR/OpenMPDialec
      SmallVectorImpl<OpAsmParser::UnresolvedOperand> &inReductionVars,
      SmallVectorImpl<Type> &inReductionTypes,
      DenseBoolArrayAttr &inReductionByref, ArrayAttr &inReductionSyms,
-@@ -676,6 +683,7 @@
+@@ -676,6 +684,7 @@
      llvm::SmallVectorImpl<OpAsmParser::UnresolvedOperand> &privateVars,
      llvm::SmallVectorImpl<Type> &privateTypes, ArrayAttr &privateSyms) {
    AllRegionParseArgs args;
@@ -14312,7 +14628,7 @@ diff -Naur -x .git llvm-project.upstream/mlir/lib/Dialect/OpenMP/IR/OpenMPDialec
    args.inReductionArgs.emplace(inReductionVars, inReductionTypes,
                                 inReductionByref, inReductionSyms);
    args.mapArgs.emplace(mapVars, mapTypes);
-@@ -789,6 +797,7 @@
+@@ -789,6 +798,7 @@
        : vars(vars), types(types), byref(byref), syms(syms) {}
  };
  struct AllRegionPrintArgs {
@@ -14320,7 +14636,7 @@ diff -Naur -x .git llvm-project.upstream/mlir/lib/Dialect/OpenMP/IR/OpenMPDialec
    std::optional<ReductionPrintArgs> inReductionArgs;
    std::optional<MapPrintArgs> mapArgs;
    std::optional<PrivatePrintArgs> privateArgs;
-@@ -867,6 +876,8 @@
+@@ -867,6 +877,8 @@
    auto iface = llvm::cast<mlir::omp::BlockArgOpenMPOpInterface>(op);
    MLIRContext *ctx = op->getContext();
  
@@ -14329,7 +14645,7 @@ diff -Naur -x .git llvm-project.upstream/mlir/lib/Dialect/OpenMP/IR/OpenMPDialec
    printBlockArgClause(p, ctx, "in_reduction", iface.getInReductionBlockArgs(),
                        args.inReductionArgs);
    printBlockArgClause(p, ctx, "map_entries", iface.getMapBlockArgs(),
-@@ -887,12 +898,14 @@
+@@ -887,12 +899,14 @@
    p.printRegion(region, /*printEntryBlockArgs=*/false);
  }
  
@@ -14346,7 +14662,7 @@ diff -Naur -x .git llvm-project.upstream/mlir/lib/Dialect/OpenMP/IR/OpenMPDialec
    args.inReductionArgs.emplace(inReductionVars, inReductionTypes,
                                 inReductionByref, inReductionSyms);
    args.mapArgs.emplace(mapVars, mapTypes);
-@@ -1652,20 +1665,170 @@
+@@ -1652,20 +1666,200 @@
    // inReductionByref, inReductionSyms.
    TargetOp::build(builder, state, /*allocate_vars=*/{}, /*allocator_vars=*/{},
                    makeArrayAttr(ctx, clauses.dependKinds), clauses.dependVars,
@@ -14406,7 +14722,7 @@ diff -Naur -x .git llvm-project.upstream/mlir/lib/Dialect/OpenMP/IR/OpenMPDialec
 +    return emitError("target containing multiple teams constructs");
 +
 +  // Check that host_eval values are only used in legal ways.
-+  bool isTargetSPMD = isTargetSPMDLoop();
++  llvm::omp::OMPTgtExecModeFlags execFlags = getKernelExecFlags();
 +  for (Value hostEvalArg :
 +       cast<BlockArgOpenMPOpInterface>(getOperation()).getHostEvalBlockArgs()) {
 +    for (Operation *user : hostEvalArg.getUsers()) {
@@ -14421,7 +14737,8 @@ diff -Naur -x .git llvm-project.upstream/mlir/lib/Dialect/OpenMP/IR/OpenMPDialec
 +                                "and 'thread_limit' in 'omp.teams'";
 +      }
 +      if (auto parallelOp = dyn_cast<ParallelOp>(user)) {
-+        if (isTargetSPMD && hostEvalArg == parallelOp.getNumThreads())
++        if (execFlags == llvm::omp::OMP_TGT_EXEC_MODE_SPMD &&
++            hostEvalArg == parallelOp.getNumThreads())
 +          continue;
 +
 +        return emitOpError()
@@ -14429,15 +14746,15 @@ diff -Naur -x .git llvm-project.upstream/mlir/lib/Dialect/OpenMP/IR/OpenMPDialec
 +                  "'omp.parallel' when representing target SPMD";
 +      }
 +      if (auto loopNestOp = dyn_cast<LoopNestOp>(user)) {
-+        if (isTargetSPMD &&
++        if (execFlags != llvm::omp::OMP_TGT_EXEC_MODE_GENERIC &&
 +            (llvm::is_contained(loopNestOp.getLoopLowerBounds(), hostEvalArg) ||
 +             llvm::is_contained(loopNestOp.getLoopUpperBounds(), hostEvalArg) ||
 +             llvm::is_contained(loopNestOp.getLoopSteps(), hostEvalArg)))
 +          continue;
 +
-+        return emitOpError()
-+               << "host_eval argument only legal as loop bounds and steps in "
-+                  "'omp.loop_nest' when representing target SPMD";
++        return emitOpError() << "host_eval argument only legal as loop bounds "
++                                "and steps in 'omp.loop_nest' when "
++                                "representing target SPMD or Generic-SPMD";
 +      }
 +
 +      return emitOpError() << "host_eval argument illegal use in '"
@@ -14487,38 +14804,67 @@ diff -Naur -x .git llvm-project.upstream/mlir/lib/Dialect/OpenMP/IR/OpenMPDialec
 +  return capturedOp;
 +}
 +
-+bool TargetOp::isTargetSPMDLoop() {
++llvm::omp::OMPTgtExecModeFlags TargetOp::getKernelExecFlags() {
++  using namespace llvm::omp;
++
++  // Make sure this region is capturing a loop. Otherwise, it's a generic
++  // kernel.
 +  Operation *capturedOp = getInnermostCapturedOmpOp();
 +  if (!isa_and_present<LoopNestOp>(capturedOp))
-+    return false;
++    return OMP_TGT_EXEC_MODE_GENERIC;
 +
-+  // Accept optional SIMD leaf construct.
-+  Operation *workshareOp = capturedOp->getParentOp();
-+  if (isa_and_present<SimdOp>(workshareOp))
-+    workshareOp = workshareOp->getParentOp();
++  SmallVector<LoopWrapperInterface> wrappers;
++  cast<LoopNestOp>(capturedOp).gatherWrappers(wrappers);
++  assert(!wrappers.empty());
 +
-+  if (!isa_and_present<WsloopOp>(workshareOp))
-+    return false;
++  // Ignore optional SIMD leaf construct.
++  auto *innermostWrapper = wrappers.begin();
++  if (isa<SimdOp>(innermostWrapper))
++    innermostWrapper = std::next(innermostWrapper);
 +
-+  Operation *distributeOp = workshareOp->getParentOp();
-+  if (!isa_and_present<DistributeOp>(distributeOp))
-+    return false;
++  long numWrappers = std::distance(innermostWrapper, wrappers.end());
 +
-+  Operation *parallelOp = distributeOp->getParentOp();
-+  if (!isa_and_present<ParallelOp>(parallelOp))
-+    return false;
++  // Detect Generic-SPMD: target-teams-distribute[-simd].
++  if (numWrappers == 1) {
++    if (!isa<DistributeOp>(innermostWrapper))
++      return OMP_TGT_EXEC_MODE_GENERIC;
 +
-+  Operation *teamsOp = parallelOp->getParentOp();
-+  if (!isa_and_present<TeamsOp>(teamsOp))
-+    return false;
++    Operation *teamsOp = (*innermostWrapper)->getParentOp();
++    if (!isa_and_present<TeamsOp>(teamsOp))
++      return OMP_TGT_EXEC_MODE_GENERIC;
 +
-+  return teamsOp->getParentOp() == (*this);
++    if (teamsOp->getParentOp() == *this)
++      return OMP_TGT_EXEC_MODE_GENERIC_SPMD;
++  }
++
++  // Detect SPMD: target-teams-distribute-parallel-wsloop[-simd].
++  if (numWrappers == 2) {
++    if (!isa<WsloopOp>(innermostWrapper))
++      return OMP_TGT_EXEC_MODE_GENERIC;
++
++    innermostWrapper = std::next(innermostWrapper);
++    if (!isa<DistributeOp>(innermostWrapper))
++      return OMP_TGT_EXEC_MODE_GENERIC;
++
++    Operation *parallelOp = (*innermostWrapper)->getParentOp();
++    if (!isa_and_present<ParallelOp>(parallelOp))
++      return OMP_TGT_EXEC_MODE_GENERIC;
++
++    Operation *teamsOp = parallelOp->getParentOp();
++    if (!isa_and_present<TeamsOp>(teamsOp))
++      return OMP_TGT_EXEC_MODE_GENERIC;
++
++    if (teamsOp->getParentOp() == *this)
++      return OMP_TGT_EXEC_MODE_SPMD;
++  }
++
++  return OMP_TGT_EXEC_MODE_GENERIC;
 +}
 +
  //===----------------------------------------------------------------------===//
  // ParallelOp
  //===----------------------------------------------------------------------===//
-@@ -1798,24 +1961,16 @@
+@@ -1798,24 +1992,16 @@
    // Check parent region
    // TODO If nested inside of a target region, also check that it does not
    // contain any statements, declarations or directives other than this
@@ -14550,7 +14896,7 @@ diff -Naur -x .git llvm-project.upstream/mlir/lib/Dialect/OpenMP/IR/OpenMPDialec
  
    // Check for allocate clause restrictions
    if (getAllocateVars().size() != getAllocatorVars().size())
-@@ -2120,6 +2275,7 @@
+@@ -2120,6 +2306,7 @@
      if (!isComposite())
        return emitError()
               << "'omp.composite' attribute missing from composite wrapper";
@@ -14559,9 +14905,16 @@ diff -Naur -x .git llvm-project.upstream/mlir/lib/Dialect/OpenMP/IR/OpenMPDialec
      // construct directly after DISTRIBUTE.
      if (isa<WsloopOp>(nested)) {
 diff -Naur -x .git llvm-project.upstream/mlir/lib/Target/LLVMIR/Dialect/OpenMP/OpenMPToLLVMIRTranslation.cpp llvm-project/mlir/lib/Target/LLVMIR/Dialect/OpenMP/OpenMPToLLVMIRTranslation.cpp
---- llvm-project.upstream/mlir/lib/Target/LLVMIR/Dialect/OpenMP/OpenMPToLLVMIRTranslation.cpp	2024-11-26 11:41:40.989139995 -0500
-+++ llvm-project/mlir/lib/Target/LLVMIR/Dialect/OpenMP/OpenMPToLLVMIRTranslation.cpp	2024-11-26 11:29:45.197639151 -0500
-@@ -32,6 +32,7 @@
+--- llvm-project.upstream/mlir/lib/Target/LLVMIR/Dialect/OpenMP/OpenMPToLLVMIRTranslation.cpp	2024-11-27 14:11:54.141109611 -0500
++++ llvm-project/mlir/lib/Target/LLVMIR/Dialect/OpenMP/OpenMPToLLVMIRTranslation.cpp	2024-11-27 14:06:37.033278649 -0500
+@@ -26,12 +26,14 @@
+ #include "llvm/ADT/SetVector.h"
+ #include "llvm/ADT/TypeSwitch.h"
+ #include "llvm/Frontend/OpenMP/OMPConstants.h"
++#include "llvm/Frontend/OpenMP/OMPDeviceConstants.h"
+ #include "llvm/Frontend/OpenMP/OMPIRBuilder.h"
+ #include "llvm/IR/DebugInfoMetadata.h"
+ #include "llvm/IR/IRBuilder.h"
  #include "llvm/IR/ReplaceConstant.h"
  #include "llvm/Support/FileSystem.h"
  #include "llvm/TargetParser/Triple.h"
@@ -14569,7 +14922,7 @@ diff -Naur -x .git llvm-project.upstream/mlir/lib/Target/LLVMIR/Dialect/OpenMP/O
  #include "llvm/Transforms/Utils/ModuleUtils.h"
  
  #include <any>
-@@ -166,6 +167,10 @@
+@@ -166,6 +168,10 @@
      if (op.getDevice())
        result = todo("device");
    };
@@ -14580,7 +14933,7 @@ diff -Naur -x .git llvm-project.upstream/mlir/lib/Target/LLVMIR/Dialect/OpenMP/O
    auto checkHasDeviceAddr = [&todo](auto op, LogicalResult &result) {
      if (!op.getHasDeviceAddrVars().empty())
        result = todo("has_device_addr");
-@@ -174,10 +179,6 @@
+@@ -174,10 +180,6 @@
      if (op.getHint())
        op.emitWarning("hint clause discarded");
    };
@@ -14591,7 +14944,7 @@ diff -Naur -x .git llvm-project.upstream/mlir/lib/Target/LLVMIR/Dialect/OpenMP/O
    auto checkInReduction = [&todo](auto op, LogicalResult &result) {
      if (!op.getInReductionVars().empty() || op.getInReductionByref() ||
          op.getInReductionSyms())
-@@ -224,10 +225,6 @@
+@@ -224,10 +226,6 @@
          op.getReductionSyms())
        result = todo("reduction");
    };
@@ -14602,7 +14955,7 @@ diff -Naur -x .git llvm-project.upstream/mlir/lib/Target/LLVMIR/Dialect/OpenMP/O
    auto checkTaskReduction = [&todo](auto op, LogicalResult &result) {
      if (!op.getTaskReductionVars().empty() || op.getTaskReductionByref() ||
          op.getTaskReductionSyms())
-@@ -252,7 +249,6 @@
+@@ -252,7 +250,6 @@
        .Case([&](omp::TeamsOp op) {
          checkAllocate(op, result);
          checkPrivate(op, result);
@@ -14610,7 +14963,7 @@ diff -Naur -x .git llvm-project.upstream/mlir/lib/Target/LLVMIR/Dialect/OpenMP/O
        })
        .Case([&](omp::TaskOp op) {
          checkAllocate(op, result);
-@@ -287,11 +283,16 @@
+@@ -287,11 +284,16 @@
              omp::AtomicCaptureOp>([&](auto op) { checkHint(op, result); })
        .Case<omp::TargetEnterDataOp, omp::TargetExitDataOp, omp::TargetUpdateOp>(
            [&](auto op) { checkDepend(op, result); })
@@ -14628,7 +14981,7 @@ diff -Naur -x .git llvm-project.upstream/mlir/lib/Target/LLVMIR/Dialect/OpenMP/O
          checkInReduction(op, result);
          checkIsDevicePtr(op, result);
          // Privatization clauses are supported, except on some situations, so we
-@@ -311,7 +312,6 @@
+@@ -311,7 +313,6 @@
                                      "structures in omp.target operation");
            }
          }
@@ -14636,7 +14989,7 @@ diff -Naur -x .git llvm-project.upstream/mlir/lib/Target/LLVMIR/Dialect/OpenMP/O
        })
        .Default([](Operation &) {
          // Assume all clauses for an operation can be translated unless they are
-@@ -391,6 +391,8 @@
+@@ -391,6 +392,8 @@
      Region &region, StringRef blockName, llvm::IRBuilderBase &builder,
      LLVM::ModuleTranslation &moduleTranslation,
      SmallVectorImpl<llvm::PHINode *> *continuationBlockPHIs = nullptr) {
@@ -14645,7 +14998,7 @@ diff -Naur -x .git llvm-project.upstream/mlir/lib/Target/LLVMIR/Dialect/OpenMP/O
    llvm::BasicBlock *continuationBlock =
        splitBB(builder, true, "omp.region.cont");
    llvm::BasicBlock *sourceBlock = builder.GetInsertBlock();
-@@ -412,7 +414,12 @@
+@@ -412,7 +415,12 @@
    bool operandsProcessed = false;
    unsigned numYields = 0;
    for (Block &bb : region.getBlocks()) {
@@ -14659,7 +15012,7 @@ diff -Naur -x .git llvm-project.upstream/mlir/lib/Target/LLVMIR/Dialect/OpenMP/O
        if (!operandsProcessed) {
          for (unsigned i = 0, e = yield->getNumOperands(); i < e; ++i) {
            continuationBlockPHITypes.push_back(
-@@ -468,6 +475,13 @@
+@@ -468,6 +476,13 @@
              moduleTranslation.convertBlock(*bb, bb->isEntryBlock(), builder)))
        return llvm::make_error<PreviouslyReportedError>();
  
@@ -14673,7 +15026,16 @@ diff -Naur -x .git llvm-project.upstream/mlir/lib/Target/LLVMIR/Dialect/OpenMP/O
      // Special handling for `omp.yield` and `omp.terminator` (we may have more
      // than one): they return the control to the parent OpenMP dialect operation
      // so replace them with the branch to the continuation block. We handle this
-@@ -569,6 +583,150 @@
+@@ -519,7 +534,7 @@
+ /// This must be called after block arguments of parent wrappers have already
+ /// been mapped to LLVM IR values.
+ static LogicalResult
+-convertIgnoredWrapper(omp::LoopWrapperInterface &opInst,
++convertIgnoredWrapper(omp::LoopWrapperInterface opInst,
+                       LLVM::ModuleTranslation &moduleTranslation) {
+   // Map block arguments directly to the LLVM value associated to the
+   // corresponding operand. This is semantically equivalent to this wrapper not
+@@ -569,6 +584,150 @@
    return success();
  }
  
@@ -14824,7 +15186,7 @@ diff -Naur -x .git llvm-project.upstream/mlir/lib/Target/LLVMIR/Dialect/OpenMP/O
  /// Converts an OpenMP 'masked' operation into LLVM IR using OpenMPIRBuilder.
  static LogicalResult
  convertOmpMasked(Operation &opInst, llvm::IRBuilderBase &builder,
-@@ -992,19 +1150,37 @@
+@@ -992,19 +1151,37 @@
        // variable allocated in the inlined region)
        llvm::Value *var = builder.CreateAlloca(
            moduleTranslation.convertType(reductionDecls[i].getType()));
@@ -14869,7 +15231,7 @@ diff -Naur -x .git llvm-project.upstream/mlir/lib/Target/LLVMIR/Dialect/OpenMP/O
      }
    }
  
-@@ -1117,18 +1293,20 @@
+@@ -1117,18 +1294,20 @@
      LLVM::ModuleTranslation &moduleTranslation,
      llvm::OpenMPIRBuilder::InsertPointTy &allocaIP,
      SmallVectorImpl<omp::DeclareReductionOp> &reductionDecls,
@@ -14894,7 +15256,7 @@ diff -Naur -x .git llvm-project.upstream/mlir/lib/Target/LLVMIR/Dialect/OpenMP/O
    collectReductionInfo(op, builder, moduleTranslation, reductionDecls,
                         owningReductionGens, owningAtomicReductionGens,
                         privateReductionVariables, reductionInfos);
-@@ -1140,7 +1318,7 @@
+@@ -1140,7 +1319,7 @@
    builder.SetInsertPoint(tempTerminator);
    llvm::OpenMPIRBuilder::InsertPointOrErrorTy contInsertPoint =
        ompBuilder->createReductions(builder.saveIP(), allocaIP, reductionInfos,
@@ -14903,7 +15265,7 @@ diff -Naur -x .git llvm-project.upstream/mlir/lib/Target/LLVMIR/Dialect/OpenMP/O
  
    if (failed(handleError(contInsertPoint, *op)))
      return failure();
-@@ -1166,7 +1344,6 @@
+@@ -1166,7 +1345,6 @@
    return inlineOmpRegionCleanup(reductionRegions, privateReductionVariables,
                                  moduleTranslation, builder,
                                  "omp.reduction.cleanup");
@@ -14911,7 +15273,7 @@ diff -Naur -x .git llvm-project.upstream/mlir/lib/Target/LLVMIR/Dialect/OpenMP/O
  }
  
  static ArrayRef<bool> getIsByRef(std::optional<ArrayRef<bool>> attr) {
-@@ -1429,9 +1606,9 @@
+@@ -1429,9 +1607,9 @@
    builder.restoreIP(*afterIP);
  
    // Process the reductions if required.
@@ -14924,7 +15286,7 @@ diff -Naur -x .git llvm-project.upstream/mlir/lib/Target/LLVMIR/Dialect/OpenMP/O
  }
  
  /// Converts an OpenMP single construct into LLVM IR using OpenMPIRBuilder.
-@@ -1485,6 +1662,33 @@
+@@ -1485,6 +1663,33 @@
    if (failed(checkImplementationStatus(*op)))
      return failure();
  
@@ -14958,7 +15320,7 @@ diff -Naur -x .git llvm-project.upstream/mlir/lib/Target/LLVMIR/Dialect/OpenMP/O
    auto bodyCB = [&](InsertPointTy allocaIP, InsertPointTy codegenIP) {
      LLVM::ModuleTranslation::SaveStack<OpenMPAllocaStackFrame> frame(
          moduleTranslation, allocaIP);
-@@ -1519,6 +1723,13 @@
+@@ -1519,6 +1724,13 @@
      return failure();
  
    builder.restoreIP(*afterIP);
@@ -14972,7 +15334,7 @@ diff -Naur -x .git llvm-project.upstream/mlir/lib/Target/LLVMIR/Dialect/OpenMP/O
    return success();
  }
  
-@@ -1713,6 +1924,11 @@
+@@ -1713,6 +1925,11 @@
  static LogicalResult
  convertOmpWsloop(Operation &opInst, llvm::IRBuilderBase &builder,
                   LLVM::ModuleTranslation &moduleTranslation) {
@@ -14984,7 +15346,7 @@ diff -Naur -x .git llvm-project.upstream/mlir/lib/Target/LLVMIR/Dialect/OpenMP/O
    auto wsloopOp = cast<omp::WsloopOp>(opInst);
    if (failed(checkImplementationStatus(opInst)))
      return failure();
-@@ -1738,8 +1954,6 @@
+@@ -1738,8 +1955,6 @@
  
    SmallVector<omp::DeclareReductionOp> reductionDecls;
    collectReductionDecls(wsloopOp, reductionDecls);
@@ -14993,7 +15355,7 @@ diff -Naur -x .git llvm-project.upstream/mlir/lib/Target/LLVMIR/Dialect/OpenMP/O
  
    SmallVector<llvm::Value *> privateReductionVariables(
        wsloopOp.getNumReductionVars());
-@@ -1749,7 +1963,7 @@
+@@ -1749,7 +1964,7 @@
        cast<omp::BlockArgOpenMPOpInterface>(opInst).getReductionBlockArgs();
  
    if (failed(allocAndInitializeReductionVars(
@@ -15002,7 +15364,7 @@ diff -Naur -x .git llvm-project.upstream/mlir/lib/Target/LLVMIR/Dialect/OpenMP/O
            reductionDecls, privateReductionVariables, reductionVariableMap,
            isByRef)))
      return failure();
-@@ -1770,6 +1984,9 @@
+@@ -1770,6 +1985,9 @@
    // Set up the source location value for OpenMP runtime.
    llvm::OpenMPIRBuilder::LocationDescription ompLoc(builder);
  
@@ -15012,7 +15374,7 @@ diff -Naur -x .git llvm-project.upstream/mlir/lib/Target/LLVMIR/Dialect/OpenMP/O
    // Generator of the canonical loop body.
    SmallVector<llvm::CanonicalLoopInfo *> loopInfos;
    SmallVector<llvm::OpenMPIRBuilder::InsertPointTy> bodyInsertPoints;
-@@ -1787,11 +2004,27 @@
+@@ -1787,11 +2005,27 @@
      if (loopInfos.size() != loopOp.getNumLoops() - 1)
        return llvm::Error::success();
  
@@ -15044,7 +15406,7 @@ diff -Naur -x .git llvm-project.upstream/mlir/lib/Target/LLVMIR/Dialect/OpenMP/O
    };
  
    // Delegate actual loop construction to the OpenMP IRBuilder.
-@@ -1799,7 +2032,6 @@
+@@ -1799,7 +2033,6 @@
    // loop, i.e. it has a positive step, uses signed integer semantics.
    // Reconsider this code when the nested loop operation clearly supports more
    // cases.
@@ -15052,7 +15414,7 @@ diff -Naur -x .git llvm-project.upstream/mlir/lib/Target/LLVMIR/Dialect/OpenMP/O
    for (unsigned i = 0, e = loopOp.getNumLoops(); i < e; ++i) {
      llvm::Value *lowerBound =
          moduleTranslation.lookupValue(loopOp.getLoopLowerBounds()[i]);
-@@ -1834,19 +2066,30 @@
+@@ -1834,19 +2067,30 @@
    llvm::CanonicalLoopInfo *loopInfo =
        ompBuilder->collapseLoops(ompLoc.DL, loopInfos, {});
  
@@ -15090,7 +15452,7 @@ diff -Naur -x .git llvm-project.upstream/mlir/lib/Target/LLVMIR/Dialect/OpenMP/O
  
    if (failed(handleError(wsloopIP, opInst)))
      return failure();
-@@ -1858,9 +2101,10 @@
+@@ -1858,9 +2102,10 @@
    builder.restoreIP(afterIP);
  
    // Process the reductions if required.
@@ -15104,7 +15466,7 @@ diff -Naur -x .git llvm-project.upstream/mlir/lib/Target/LLVMIR/Dialect/OpenMP/O
  }
  
  /// Converts the OpenMP parallel operation to LLVM IR.
-@@ -2072,7 +2316,7 @@
+@@ -2072,7 +2317,7 @@
  
        llvm::OpenMPIRBuilder::InsertPointOrErrorTy contInsertPoint =
            ompBuilder->createReductions(builder.saveIP(), allocaIP,
@@ -15113,7 +15475,7 @@ diff -Naur -x .git llvm-project.upstream/mlir/lib/Target/LLVMIR/Dialect/OpenMP/O
        if (!contInsertPoint)
          return contInsertPoint.takeError();
  
-@@ -2171,77 +2415,19 @@
+@@ -2171,77 +2416,26 @@
  static LogicalResult
  convertOmpSimd(Operation &opInst, llvm::IRBuilderBase &builder,
                 LLVM::ModuleTranslation &moduleTranslation) {
@@ -15121,9 +15483,9 @@ diff -Naur -x .git llvm-project.upstream/mlir/lib/Target/LLVMIR/Dialect/OpenMP/O
    auto simdOp = cast<omp::SimdOp>(opInst);
    auto loopOp = cast<omp::LoopNestOp>(simdOp.getWrappedLoop());
  
-   if (failed(checkImplementationStatus(opInst)))
-     return failure();
- 
+-  if (failed(checkImplementationStatus(opInst)))
+-    return failure();
+-
 -  llvm::OpenMPIRBuilder::LocationDescription ompLoc(builder);
 -
 -  // Generator of the canonical loop body.
@@ -15178,10 +15540,18 @@ diff -Naur -x .git llvm-project.upstream/mlir/lib/Target/LLVMIR/Dialect/OpenMP/O
 -        ompBuilder->createCanonicalLoop(
 -            loc, bodyGen, lowerBound, upperBound, step,
 -            /*IsSigned=*/true, /*InclusiveStop=*/true, computeIP);
--
++  // Silently ignore unimplemented SIMD clauses rather than emitting errors, so
++  // that compilation succeeds.
++  // if (failed(checkImplementationStatus(opInst)))
++  //   return failure();
+ 
 -    if (failed(handleError(loopResult, *loopOp)))
 -      return failure();
--
++  // This is needed to make sure that uses of entry block arguments for clauses
++  // that are not going to be translated are mapped to the outside values.
++  if (failed(convertIgnoredWrapper(simdOp, moduleTranslation)))
++    return failure();
+ 
 -    loopInfos.push_back(*loopResult);
 -  }
 +  auto loopNestConversionResult = convertLoopNestHelper(
@@ -15197,7 +15567,7 @@ diff -Naur -x .git llvm-project.upstream/mlir/lib/Target/LLVMIR/Dialect/OpenMP/O
  
    llvm::ConstantInt *simdlen = nullptr;
    if (std::optional<uint64_t> simdlenVar = simdOp.getSimdlen())
-@@ -2751,7 +2937,8 @@
+@@ -2751,7 +2945,8 @@
        // bytes from the extent (ub - lb) * sizeInBytes. NOTE: This may need
        // some adjustment for members with more complex types.
        return builder.CreateMul(elementCount,
@@ -15207,7 +15577,7 @@ diff -Naur -x .git llvm-project.upstream/mlir/lib/Target/LLVMIR/Dialect/OpenMP/O
      }
    }
  
-@@ -3175,7 +3362,7 @@
+@@ -3175,7 +3370,7 @@
  
      combinedInfo.Types.emplace_back(mapFlag);
      combinedInfo.DevicePointers.emplace_back(
@@ -15216,7 +15586,7 @@ diff -Naur -x .git llvm-project.upstream/mlir/lib/Target/LLVMIR/Dialect/OpenMP/O
      combinedInfo.Names.emplace_back(
          LLVM::createMappingInformation(memberClause.getLoc(), ompBuilder));
      uint64_t basePointerIndex =
-@@ -3557,9 +3744,14 @@
+@@ -3557,9 +3752,14 @@
                         return info.DevicePtrInfoMap[basePointer].second;
                       });
  
@@ -15234,7 +15604,7 @@ diff -Naur -x .git llvm-project.upstream/mlir/lib/Target/LLVMIR/Dialect/OpenMP/O
        }
        break;
      case BodyGenTy::DupNoPriv:
-@@ -3568,6 +3760,7 @@
+@@ -3568,6 +3768,7 @@
        // If device info is available then region has already been generated
        if (info.DevicePtrInfoMap.empty()) {
          builder.restoreIP(codeGenIP);
@@ -15242,7 +15612,7 @@ diff -Naur -x .git llvm-project.upstream/mlir/lib/Target/LLVMIR/Dialect/OpenMP/O
          // For device pass, if use_device_ptr(addr) mappings were present,
          // we need to link them here before codegen.
          if (ompBuilder->Config.IsTargetDevice.value_or(false)) {
-@@ -3579,9 +3772,14 @@
+@@ -3579,9 +3780,14 @@
                         useDevicePtrVars, mapData);
          }
  
@@ -15260,7 +15630,7 @@ diff -Naur -x .git llvm-project.upstream/mlir/lib/Target/LLVMIR/Dialect/OpenMP/O
        }
        break;
      }
-@@ -3608,6 +3806,64 @@
+@@ -3608,6 +3814,64 @@
    return success();
  }
  
@@ -15325,7 +15695,7 @@ diff -Naur -x .git llvm-project.upstream/mlir/lib/Target/LLVMIR/Dialect/OpenMP/O
  /// Lowers the FlagsAttr which is applied to the module on the device
  /// pass when offloading, this attribute contains OpenMP RTL globals that can
  /// be passed as flags to the frontend, otherwise they are set to default
-@@ -3783,7 +4039,7 @@
+@@ -3783,7 +4047,7 @@
        ompBuilder.M.getDataLayout().getProgramAddressSpace();
  
    // Create the alloca for the argument the current point.
@@ -15334,7 +15704,7 @@ diff -Naur -x .git llvm-project.upstream/mlir/lib/Target/LLVMIR/Dialect/OpenMP/O
  
    if (allocaAS != defaultAS && arg.getType()->isPointerTy())
      v = builder.CreateAddrSpaceCast(v, builder.getPtrTy(defaultAS));
-@@ -3814,6 +4070,301 @@
+@@ -3814,6 +4078,301 @@
    return builder.saveIP();
  }
  
@@ -15603,7 +15973,7 @@ diff -Naur -x .git llvm-project.upstream/mlir/lib/Target/LLVMIR/Dialect/OpenMP/O
 +  if (numThreads)
 +    bounds.MaxThreads = moduleTranslation.lookupValue(numThreads);
 +
-+  if (targetOp.isTargetSPMDLoop()) {
++  if (targetOp.getKernelExecFlags() != llvm::omp::OMP_TGT_EXEC_MODE_GENERIC) {
 +    llvm::OpenMPIRBuilder *ompBuilder = moduleTranslation.getOpenMPBuilder();
 +    bounds.LoopTripCount = nullptr;
 +
@@ -15636,7 +16006,7 @@ diff -Naur -x .git llvm-project.upstream/mlir/lib/Target/LLVMIR/Dialect/OpenMP/O
  static LogicalResult
  convertOmpTarget(Operation &opInst, llvm::IRBuilderBase &builder,
                   LLVM::ModuleTranslation &moduleTranslation) {
-@@ -3823,12 +4374,14 @@
+@@ -3823,12 +4382,14 @@
  
    llvm::OpenMPIRBuilder *ompBuilder = moduleTranslation.getOpenMPBuilder();
    bool isTargetDevice = ompBuilder->Config.isTargetDevice();
@@ -15653,7 +16023,7 @@ diff -Naur -x .git llvm-project.upstream/mlir/lib/Target/LLVMIR/Dialect/OpenMP/O
    llvm::Function *llvmOutlinedFn = nullptr;
  
    // TODO: It can also be false if a compile-time constant `false` IF clause is
-@@ -3871,7 +4424,7 @@
+@@ -3871,7 +4432,7 @@
        OperandRange privateVars = targetOp.getPrivateVars();
        std::optional<ArrayAttr> privateSyms = targetOp.getPrivateSyms();
        MutableArrayRef<BlockArgument> privateBlockArgs =
@@ -15662,7 +16032,7 @@ diff -Naur -x .git llvm-project.upstream/mlir/lib/Target/LLVMIR/Dialect/OpenMP/O
  
        for (auto [privVar, privatizerNameAttr, privBlockArg] :
             llvm::zip_equal(privateVars, *privateSyms, privateBlockArgs)) {
-@@ -3905,6 +4458,7 @@
+@@ -3905,6 +4466,7 @@
        return exitBlock.takeError();
  
      builder.SetInsertPoint(*exitBlock);
@@ -15670,7 +16040,7 @@ diff -Naur -x .git llvm-project.upstream/mlir/lib/Target/LLVMIR/Dialect/OpenMP/O
      return builder.saveIP();
    };
  
-@@ -3916,9 +4470,6 @@
+@@ -3916,9 +4478,6 @@
    if (!getTargetEntryUniqueInfo(entryInfo, targetOp, parentName))
      return failure();
  
@@ -15680,7 +16050,7 @@ diff -Naur -x .git llvm-project.upstream/mlir/lib/Target/LLVMIR/Dialect/OpenMP/O
    llvm::OpenMPIRBuilder::InsertPointTy allocaIP =
        findAllocaInsertPoint(builder, moduleTranslation);
  
-@@ -3954,6 +4505,29 @@
+@@ -3954,6 +4513,29 @@
    };
  
    llvm::SmallVector<llvm::Value *, 4> kernelInput;
@@ -15710,7 +16080,7 @@ diff -Naur -x .git llvm-project.upstream/mlir/lib/Target/LLVMIR/Dialect/OpenMP/O
    for (size_t i = 0; i < mapVars.size(); ++i) {
      // declare target arguments are not passed to kernels as arguments
      // TODO: We currently do not handle cases where a member is explicitly
-@@ -3969,11 +4543,16 @@
+@@ -3969,10 +4551,16 @@
    buildDependData(targetOp.getDependKinds(), targetOp.getDependVars(),
                    moduleTranslation, dds);
  
@@ -15722,15 +16092,14 @@ diff -Naur -x .git llvm-project.upstream/mlir/lib/Target/LLVMIR/Dialect/OpenMP/O
        moduleTranslation.getOpenMPBuilder()->createTarget(
 -          ompLoc, isOffloadEntry, allocaIP, builder.saveIP(), entryInfo,
 -          defaultValTeams, defaultValThreads, kernelInput, genMapInfoCB, bodyCB,
--          argAccessorCB, dds, targetOp.getNowait());
-+          ompLoc, targetOp.isTargetSPMDLoop(), isOffloadEntry, ifCond, allocaIP,
-+          builder.saveIP(), entryInfo, defaultBounds, runtimeBounds,
-+          kernelInput, genMapInfoCB, bodyCB, argAccessorCB, dds,
-+          targetOp.getNowait());
++          ompLoc,
++          targetOp.getKernelExecFlags() == llvm::omp::OMP_TGT_EXEC_MODE_SPMD,
++          isOffloadEntry, ifCond, allocaIP, builder.saveIP(), entryInfo,
++          defaultBounds, runtimeBounds, kernelInput, genMapInfoCB, bodyCB,
+           argAccessorCB, dds, targetOp.getNowait());
  
    if (failed(handleError(afterIP, opInst)))
-     return failure();
-@@ -4079,25 +4658,6 @@
+@@ -4079,25 +4667,6 @@
    return success();
  }
  
@@ -15756,7 +16125,7 @@ diff -Naur -x .git llvm-project.upstream/mlir/lib/Target/LLVMIR/Dialect/OpenMP/O
  /// Given an OpenMP MLIR operation, create the corresponding LLVM IR
  /// (including OpenMP runtime calls).
  static LogicalResult
-@@ -4214,6 +4774,9 @@
+@@ -4214,6 +4783,9 @@
        .Case([&](omp::TargetOp) {
          return convertOmpTarget(*op, builder, moduleTranslation);
        })
@@ -15766,7 +16135,7 @@ diff -Naur -x .git llvm-project.upstream/mlir/lib/Target/LLVMIR/Dialect/OpenMP/O
        .Case<omp::MapInfoOp, omp::MapBoundsOp, omp::PrivateClauseOp>(
            [&](auto op) {
              // No-op, should be handled by relevant owning operations e.g.
-@@ -4226,6 +4789,38 @@
+@@ -4226,6 +4798,38 @@
        });
  }
  
@@ -15805,7 +16174,7 @@ diff -Naur -x .git llvm-project.upstream/mlir/lib/Target/LLVMIR/Dialect/OpenMP/O
  static LogicalResult
  convertTargetDeviceOp(Operation *op, llvm::IRBuilderBase &builder,
                        LLVM::ModuleTranslation &moduleTranslation) {
-@@ -4256,7 +4851,8 @@
+@@ -4256,7 +4860,8 @@
    return failure(interrupted);
  }
  
@@ -15815,7 +16184,7 @@ diff -Naur -x .git llvm-project.upstream/mlir/lib/Target/LLVMIR/Dialect/OpenMP/O
  
  /// Implementation of the dialect interface that converts operations belonging
  /// to the OpenMP dialect to LLVM IR.
-@@ -4271,16 +4867,14 @@
+@@ -4271,16 +4876,14 @@
    convertOperation(Operation *op, llvm::IRBuilderBase &builder,
                     LLVM::ModuleTranslation &moduleTranslation) const final;
  
@@ -15834,7 +16203,7 @@ diff -Naur -x .git llvm-project.upstream/mlir/lib/Target/LLVMIR/Dialect/OpenMP/O
  LogicalResult OpenMPDialectLLVMIRTranslationInterface::amendOperation(
      Operation *op, ArrayRef<llvm::Instruction *> instructions,
      NamedAttribute attribute,
-@@ -4394,11 +4988,10 @@
+@@ -4394,11 +4997,10 @@
  
    llvm::OpenMPIRBuilder *ompBuilder = moduleTranslation.getOpenMPBuilder();
    if (ompBuilder->Config.isTargetDevice()) {
@@ -15850,7 +16219,7 @@ diff -Naur -x .git llvm-project.upstream/mlir/lib/Target/LLVMIR/Dialect/OpenMP/O
  }
 diff -Naur -x .git llvm-project.upstream/mlir/test/Dialect/OpenMP/invalid.mlir llvm-project/mlir/test/Dialect/OpenMP/invalid.mlir
 --- llvm-project.upstream/mlir/test/Dialect/OpenMP/invalid.mlir	2024-11-26 11:37:22.356046334 -0500
-+++ llvm-project/mlir/test/Dialect/OpenMP/invalid.mlir	2024-11-26 11:29:45.203639130 -0500
++++ llvm-project/mlir/test/Dialect/OpenMP/invalid.mlir	2024-11-27 14:06:37.033278649 -0500
 @@ -1391,24 +1391,18 @@
  // -----
  
@@ -15939,7 +16308,7 @@ diff -Naur -x .git llvm-project.upstream/mlir/test/Dialect/OpenMP/invalid.mlir l
 +// -----
 +
 +func.func @omp_target_host_eval3(%x : i32) {
-+  // expected-error @below {{op host_eval argument only legal as loop bounds and steps in 'omp.loop_nest' when representing target SPMD}}
++  // expected-error @below {{op host_eval argument only legal as loop bounds and steps in 'omp.loop_nest' when representing target SPMD or Generic-SPMD}}
 +  omp.target host_eval(%x -> %arg0 : i32) {
 +    omp.wsloop {
 +      omp.loop_nest (%iv) : i32 = (%arg0) to (%arg0) step (%arg0) {
@@ -15965,7 +16334,7 @@ diff -Naur -x .git llvm-project.upstream/mlir/test/Dialect/OpenMP/invalid.mlir l
  
 diff -Naur -x .git llvm-project.upstream/mlir/test/Dialect/OpenMP/ops.mlir llvm-project/mlir/test/Dialect/OpenMP/ops.mlir
 --- llvm-project.upstream/mlir/test/Dialect/OpenMP/ops.mlir	2024-11-26 11:37:22.356046334 -0500
-+++ llvm-project/mlir/test/Dialect/OpenMP/ops.mlir	2024-11-26 11:29:45.204639127 -0500
++++ llvm-project/mlir/test/Dialect/OpenMP/ops.mlir	2024-11-27 14:06:37.034278645 -0500
 @@ -770,7 +770,7 @@
      "omp.target"(%device, %if_cond, %num_threads) ({
         // CHECK: omp.terminator
@@ -15975,7 +16344,7 @@ diff -Naur -x .git llvm-project.upstream/mlir/test/Dialect/OpenMP/ops.mlir llvm-
  
      // Test with optional map clause.
      // CHECK: %[[MAP_A:.*]] = omp.map.info var_ptr(%[[VAL_1:.*]] : memref<?xi32>, tensor<?xi32>)   map_clauses(tofrom) capture(ByRef) -> memref<?xi32> {name = ""}
-@@ -2750,6 +2750,42 @@
+@@ -2750,6 +2750,58 @@
    return
  }
  
@@ -15991,7 +16360,7 @@ diff -Naur -x .git llvm-project.upstream/mlir/test/Dialect/OpenMP/ops.mlir llvm-
 +  }
 +
 +  // CHECK: omp.target host_eval(%{{.*}} -> %[[HOST_ARG:.*]] : i32) {
-+  // CHECK: omp.teams
++  // CHECK: omp.teams {
 +  // CHECK: omp.parallel num_threads(%[[HOST_ARG]] : i32) {
 +  // CHECK: omp.distribute {
 +  // CHECK: omp.wsloop {
@@ -16008,6 +16377,22 @@ diff -Naur -x .git llvm-project.upstream/mlir/test/Dialect/OpenMP/ops.mlir llvm-
 +        } {omp.composite}
 +        omp.terminator
 +      } {omp.composite}
++      omp.terminator
++    }
++    omp.terminator
++  }
++
++  // CHECK: omp.target host_eval(%{{.*}} -> %[[HOST_ARG:.*]] : i32) {
++  // CHECK: omp.teams {
++  // CHECK: omp.distribute {
++  // CHECK: omp.loop_nest (%{{.*}}) : i32 = (%[[HOST_ARG]]) to (%[[HOST_ARG]]) step (%[[HOST_ARG]]) {
++  omp.target host_eval(%x -> %arg0 : i32) {
++    omp.teams {
++      omp.distribute {
++        omp.loop_nest (%iv) : i32 = (%arg0) to (%arg0) step (%arg0) {
++          omp.yield
++        }
++      }
 +      omp.terminator
 +    }
 +    omp.terminator
@@ -16678,7 +17063,7 @@ diff -Naur -x .git llvm-project.upstream/mlir/test/Target/LLVMIR/omptarget-wsloo
  
  // CHECK: define internal void @[[LOOP_EMPTY_BODY_FN]](i32 %[[LOOP_CNT:.*]])
 diff -Naur -x .git llvm-project.upstream/mlir/test/Target/LLVMIR/openmp-llvm.mlir llvm-project/mlir/test/Target/LLVMIR/openmp-llvm.mlir
---- llvm-project.upstream/mlir/test/Target/LLVMIR/openmp-llvm.mlir	2024-11-26 11:41:40.998139964 -0500
+--- llvm-project.upstream/mlir/test/Target/LLVMIR/openmp-llvm.mlir	2024-11-27 14:11:54.159109544 -0500
 +++ llvm-project/mlir/test/Target/LLVMIR/openmp-llvm.mlir	2024-11-19 12:49:07.463142151 -0500
 @@ -700,7 +700,7 @@
  // CHECK-LABEL: @simd_simple_multiple
@@ -16744,9 +17129,9 @@ diff -Naur -x .git llvm-project.upstream/mlir/test/Target/LLVMIR/openmp-task-tar
      %0 = llvm.mlir.constant(0 : i32) : i32
      %1 = llvm.mlir.constant(1 : i64) : i64
 diff -Naur -x .git llvm-project.upstream/mlir/test/Target/LLVMIR/openmp-todo.mlir llvm-project/mlir/test/Target/LLVMIR/openmp-todo.mlir
---- llvm-project.upstream/mlir/test/Target/LLVMIR/openmp-todo.mlir	2024-11-26 11:41:40.998139964 -0500
-+++ llvm-project/mlir/test/Target/LLVMIR/openmp-todo.mlir	2024-11-19 12:49:07.464142148 -0500
-@@ -66,10 +66,55 @@
+--- llvm-project.upstream/mlir/test/Target/LLVMIR/openmp-todo.mlir	2024-11-27 14:11:54.159109544 -0500
++++ llvm-project/mlir/test/Target/LLVMIR/openmp-todo.mlir	2024-11-27 14:06:37.034278645 -0500
+@@ -66,10 +66,10 @@
  
  // -----
  
@@ -16757,15 +17142,29 @@ diff -Naur -x .git llvm-project.upstream/mlir/test/Target/LLVMIR/openmp-todo.mli
    // expected-error@below {{LLVM Translation failed for operation: omp.distribute}}
 -  omp.distribute {
 +  omp.distribute allocate(%x : !llvm.ptr -> %x : !llvm.ptr) {
-+    omp.loop_nest (%iv) : i32 = (%lb) to (%ub) step (%step) {
-+      omp.yield
-+    }
-+  }
-+  llvm.return
-+}
-+
-+// -----
-+
+     omp.loop_nest (%iv) : i32 = (%lb) to (%ub) step (%step) {
+       omp.yield
+     }
+@@ -79,33 +79,26 @@
+ 
+ // -----
+ 
+-llvm.func @ordered_region_par_level_simd() {
+-  // expected-error@below {{not yet implemented: Unhandled clause parallelization-level in omp.ordered.region operation}}
+-  // expected-error@below {{LLVM Translation failed for operation: omp.ordered.region}}
+-  omp.ordered.region par_level_simd {
+-    omp.terminator
+-  }
+-  llvm.return
+-}
+-
+-// -----
+-
+-llvm.func @parallel_allocate(%x : !llvm.ptr) {
+-  // expected-error@below {{not yet implemented: Unhandled clause allocate in omp.parallel operation}}
+-  // expected-error@below {{LLVM Translation failed for operation: omp.parallel}}
+-  omp.parallel allocate(%x : !llvm.ptr -> %x : !llvm.ptr) {
+-    omp.terminator
 +llvm.func @distribute_dist_schedule(%lb : i32, %ub : i32, %step : i32, %x : i32) {
 +  // expected-error@below {{not yet implemented: Unhandled clause dist_schedule in omp.distribute operation}}
 +  // expected-error@below {{LLVM Translation failed for operation: omp.distribute}}
@@ -16773,12 +17172,17 @@ diff -Naur -x .git llvm-project.upstream/mlir/test/Target/LLVMIR/openmp-todo.mli
 +    omp.loop_nest (%iv) : i32 = (%lb) to (%ub) step (%step) {
 +      omp.yield
 +    }
-+  }
-+  llvm.return
-+}
-+
-+// -----
-+
+   }
+   llvm.return
+ }
+ 
+ // -----
+ 
+-llvm.func @sections_allocate(%x : !llvm.ptr) {
+-  // expected-error@below {{not yet implemented: Unhandled clause allocate in omp.sections operation}}
+-  // expected-error@below {{LLVM Translation failed for operation: omp.sections}}
+-  omp.sections allocate(%x : !llvm.ptr -> %x : !llvm.ptr) {
+-    omp.terminator
 +llvm.func @distribute_order(%lb : i32, %ub : i32, %step : i32) {
 +  // expected-error@below {{not yet implemented: Unhandled clause order in omp.distribute operation}}
 +  // expected-error@below {{LLVM Translation failed for operation: omp.distribute}}
@@ -16786,26 +17190,132 @@ diff -Naur -x .git llvm-project.upstream/mlir/test/Target/LLVMIR/openmp-todo.mli
 +    omp.loop_nest (%iv) : i32 = (%lb) to (%ub) step (%step) {
 +      omp.yield
 +    }
-+  }
-+  llvm.return
-+}
-+
-+// -----
-+
-+omp.private {type = private} @x.privatizer : !llvm.ptr alloc {
-+^bb0(%arg0: !llvm.ptr):
-+  %0 = llvm.mlir.constant(1 : i32) : i32
-+  %1 = llvm.alloca %0 x i32 : (i32) -> !llvm.ptr
-+  omp.yield(%1 : !llvm.ptr)
-+}
+   }
+   llvm.return
+ }
+@@ -118,50 +111,46 @@
+   %1 = llvm.alloca %0 x i32 : (i32) -> !llvm.ptr
+   omp.yield(%1 : !llvm.ptr)
+ }
+-llvm.func @sections_private(%x : !llvm.ptr) {
+-  // expected-error@below {{not yet implemented: Unhandled clause privatization in omp.sections operation}}
+-  // expected-error@below {{LLVM Translation failed for operation: omp.sections}}
+-  omp.sections private(@x.privatizer %x -> %arg0 : !llvm.ptr) {
+-    omp.terminator
 +llvm.func @distribute_private(%lb : i32, %ub : i32, %step : i32, %x : !llvm.ptr) {
 +  // expected-error@below {{not yet implemented: Unhandled clause privatization in omp.distribute operation}}
 +  // expected-error@below {{LLVM Translation failed for operation: omp.distribute}}
 +  omp.distribute private(@x.privatizer %x -> %arg0 : !llvm.ptr) {
-     omp.loop_nest (%iv) : i32 = (%lb) to (%ub) step (%step) {
-       omp.yield
-     }
-@@ -278,17 +323,6 @@
++    omp.loop_nest (%iv) : i32 = (%lb) to (%ub) step (%step) {
++      omp.yield
++    }
+   }
+   llvm.return
+ }
+ 
+ // -----
+ 
+-llvm.func @simd_aligned(%lb : i32, %ub : i32, %step : i32, %x : !llvm.ptr) {
+-  // expected-error@below {{not yet implemented: Unhandled clause aligned in omp.simd operation}}
+-  // expected-error@below {{LLVM Translation failed for operation: omp.simd}}
+-  omp.simd aligned(%x : !llvm.ptr -> 32) {
+-    omp.loop_nest (%iv) : i32 = (%lb) to (%ub) step (%step) {
+-      omp.yield
+-    }
++llvm.func @ordered_region_par_level_simd() {
++  // expected-error@below {{not yet implemented: Unhandled clause parallelization-level in omp.ordered.region operation}}
++  // expected-error@below {{LLVM Translation failed for operation: omp.ordered.region}}
++  omp.ordered.region par_level_simd {
++    omp.terminator
+   }
+   llvm.return
+ }
+ 
+ // -----
+ 
+-llvm.func @simd_linear(%lb : i32, %ub : i32, %step : i32, %x : !llvm.ptr) {
+-  // expected-error@below {{not yet implemented: Unhandled clause linear in omp.simd operation}}
+-  // expected-error@below {{LLVM Translation failed for operation: omp.simd}}
+-  omp.simd linear(%x = %step : !llvm.ptr) {
+-    omp.loop_nest (%iv) : i32 = (%lb) to (%ub) step (%step) {
+-      omp.yield
+-    }
++llvm.func @parallel_allocate(%x : !llvm.ptr) {
++  // expected-error@below {{not yet implemented: Unhandled clause allocate in omp.parallel operation}}
++  // expected-error@below {{LLVM Translation failed for operation: omp.parallel}}
++  omp.parallel allocate(%x : !llvm.ptr -> %x : !llvm.ptr) {
++    omp.terminator
+   }
+   llvm.return
+ }
+ 
+ // -----
+ 
+-llvm.func @simd_nontemporal(%lb : i32, %ub : i32, %step : i32, %x : !llvm.ptr) {
+-  // expected-error@below {{not yet implemented: Unhandled clause nontemporal in omp.simd operation}}
+-  // expected-error@below {{LLVM Translation failed for operation: omp.simd}}
+-  omp.simd nontemporal(%x : !llvm.ptr) {
+-    omp.loop_nest (%iv) : i32 = (%lb) to (%ub) step (%step) {
+-      omp.yield
+-    }
++llvm.func @sections_allocate(%x : !llvm.ptr) {
++  // expected-error@below {{not yet implemented: Unhandled clause allocate in omp.sections operation}}
++  // expected-error@below {{LLVM Translation failed for operation: omp.sections}}
++  omp.sections allocate(%x : !llvm.ptr -> %x : !llvm.ptr) {
++    omp.terminator
+   }
+   llvm.return
+ }
+@@ -174,43 +163,11 @@
+   %1 = llvm.alloca %0 x i32 : (i32) -> !llvm.ptr
+   omp.yield(%1 : !llvm.ptr)
+ }
+-llvm.func @simd_private(%lb : i32, %ub : i32, %step : i32, %x : !llvm.ptr) {
+-  // expected-error@below {{not yet implemented: Unhandled clause privatization in omp.simd operation}}
+-  // expected-error@below {{LLVM Translation failed for operation: omp.simd}}
+-  omp.simd private(@x.privatizer %x -> %arg0 : !llvm.ptr) {
+-    omp.loop_nest (%iv) : i32 = (%lb) to (%ub) step (%step) {
+-      omp.yield
+-    }
+-  }
+-  llvm.return
+-}
+-
+-// -----
+-
+-omp.declare_reduction @add_f32 : f32
+-init {
+-^bb0(%arg: f32):
+-  %0 = llvm.mlir.constant(0.0 : f32) : f32
+-  omp.yield (%0 : f32)
+-}
+-combiner {
+-^bb1(%arg0: f32, %arg1: f32):
+-  %1 = llvm.fadd %arg0, %arg1 : f32
+-  omp.yield (%1 : f32)
+-}
+-atomic {
+-^bb2(%arg2: !llvm.ptr, %arg3: !llvm.ptr):
+-  %2 = llvm.load %arg3 : !llvm.ptr -> f32
+-  llvm.atomicrmw fadd %arg2, %2 monotonic : !llvm.ptr, f32
+-  omp.yield
+-}
+-llvm.func @simd_reduction(%lb : i32, %ub : i32, %step : i32, %x : !llvm.ptr) {
+-  // expected-error@below {{not yet implemented: Unhandled clause reduction in omp.simd operation}}
+-  // expected-error@below {{LLVM Translation failed for operation: omp.simd}}
+-  omp.simd reduction(@add_f32 %x -> %prv : !llvm.ptr) {
+-    omp.loop_nest (%iv) : i32 = (%lb) to (%ub) step (%step) {
+-      omp.yield
+-    }
++llvm.func @sections_private(%x : !llvm.ptr) {
++  // expected-error@below {{not yet implemented: Unhandled clause privatization in omp.sections operation}}
++  // expected-error@below {{LLVM Translation failed for operation: omp.sections}}
++  omp.sections private(@x.privatizer %x -> %arg0 : !llvm.ptr) {
++    omp.terminator
+   }
+   llvm.return
+ }
+@@ -278,17 +235,6 @@
  
  // -----
  
@@ -16823,7 +17333,7 @@ diff -Naur -x .git llvm-project.upstream/mlir/test/Target/LLVMIR/openmp-todo.mli
  omp.declare_reduction @add_f32 : f32
  init {
  ^bb0(%arg: f32):
-@@ -364,17 +398,6 @@
+@@ -364,17 +310,6 @@
  
  // -----
  
@@ -16841,7 +17351,7 @@ diff -Naur -x .git llvm-project.upstream/mlir/test/Target/LLVMIR/openmp-todo.mli
  llvm.func @target_enter_data_depend(%x: !llvm.ptr) {
    // expected-error@below {{not yet implemented: Unhandled clause depend in omp.target_enter_data operation}}
    // expected-error@below {{LLVM Translation failed for operation: omp.target_enter_data}}
-@@ -578,34 +601,6 @@
+@@ -578,34 +513,6 @@
      omp.terminator
    }
    llvm.return
@@ -16934,7 +17444,7 @@ diff -Naur -x .git llvm-project.upstream/openmp/CMakeLists.txt llvm-project/open
  
    # Set fortran test compiler if flang is found
 diff -Naur -x .git llvm-project.upstream/openmp/runtime/src/CMakeLists.txt llvm-project/openmp/runtime/src/CMakeLists.txt
---- llvm-project.upstream/openmp/runtime/src/CMakeLists.txt	2024-11-26 11:41:41.004139943 -0500
+--- llvm-project.upstream/openmp/runtime/src/CMakeLists.txt	2024-11-27 14:11:54.164109525 -0500
 +++ llvm-project/openmp/runtime/src/CMakeLists.txt	2024-11-19 12:49:07.479142101 -0500
 @@ -146,6 +146,11 @@
  set_source_files_properties(${LIBOMP_CXXFILES} PROPERTIES COMPILE_FLAGS "${LIBOMP_CONFIGURED_CXXFLAGS}")
@@ -16948,34 +17458,3 @@ diff -Naur -x .git llvm-project.upstream/openmp/runtime/src/CMakeLists.txt llvm-
  # Remove any cmake-automatic linking of the standard C++ library.
  # We neither need (nor want) the standard C++ library dependency even though we compile c++ files.
  if(NOT ${LIBOMP_USE_STDCPPLIB})
-diff -Naur -x .git llvm-project.upstream/openmp/runtime/tools/__pycache__/libomputils.cpython-312.pyc llvm-project/openmp/runtime/tools/__pycache__/libomputils.cpython-312.pyc
---- llvm-project.upstream/openmp/runtime/tools/__pycache__/libomputils.cpython-312.pyc	1969-12-31 19:00:00.000000000 -0500
-+++ llvm-project/openmp/runtime/tools/__pycache__/libomputils.cpython-312.pyc	2024-11-19 15:03:30.077262409 -0500
-@@ -0,0 +1,26 @@
-+À
-+    ®vñfB  „                   Ûf   ó d dl Z d dlZd dlZ G dÑ de´      ZdÑ ZddÑZdÑ ZdÑ Z G dÑ d	´      Z	d
-+Ñ Z
-+y)È    Nc                   Û"   á ó e Zd ZdZà fdÑZà xZS )⁄ScriptErrorz+Convenience class for user errors generatedc                 Û,   ïó t         t        | ç  |´       y ©N)⁄super⁄	Exception⁄__init__)⁄self⁄msg⁄	__class__s     Ä˙M/home/grodgers/git/trunk20.0/llvm-project/openmp/runtime/tools/libomputils.pyr	   zScriptError.__init__   s   ¯Ä ‹åiò—'®’,Û    )⁄__name__⁄
-+__module__⁄__qualname__⁄__doc__r	   ⁄__classcell__)r   s   @r   r   r      s   ¯Ñ Ÿ5˜- -r   r   c                 Û   ó t        | ´      Çr   )r   ©r   s    r   ⁄errorr      s   Ä ‹
-+êc”
-+–r   c                 Ûò   ó t        dj                  t        j                  j	                  t
-+        j                  d   ´      || ´      ´       y )Nz{}: ({}) {}r   )⁄print⁄format⁄os⁄path⁄basename⁄sys⁄argv)r   ⁄forms     r   ⁄
-+print_liner       s0   Ä ‹	à-◊
-+—
-+úrüwôw◊/—/¥∑±∏±”<∏d¿C”
-+H’Ir   c                 Û   ó t        | ´       y r   ©r    r   s    r   ⁄print_info_liner#      s	   Ä ‹àsÖOr   c                 Û   ó t        | d¨´       y )N⁄x)r   r"   r   s    r   ⁄print_error_liner&   #   s   Ä ‹àsò÷r   c                   Û   ó e Zd ZdZdÑ Zy)⁄	RunResultz_
-+    Auxiliary class for execute_command() containing the
-+    results of running a command
-+    c                 Û™   ó |d   | _         |j                  d´      | _        |j                  d´      | _        || _        dj                  |´      | _        y )Nr   zutf-8˙ )⁄
-+executable⁄decode⁄stdout⁄stderr⁄
-+returncode⁄join⁄command)r
-+   ⁄argsr-   r.   r/   s        r   r	   zRunResult.__init__-   sC   Ä ÿòqô'àåÿómëm†G”,àåÿómëm†G”,àåÿ$àåÿóxëx†ì~àçr   N)r   r   r   r   r	   © r   r   r(   r(   '   s   Ñ ÒÛ
-+&r   r(   c                 ÛÃ   ó t        j                  | t         j                  t         j                  ¨´      }|j                  ´       \  }}|j	                  ´       }t        | |||´      S )zh
-+    Run a command with arguments: args
-+
-+    Return RunResult containing stdout, stderr, returncode
-+    )r-   r.   )⁄
-+subprocess⁄Popen⁄PIPE⁄communicate⁄waitr(   )r2   ⁄handler-   r.   r/   s        r   ⁄execute_commandr;   5   sN   Ä Ù ◊—òd¨:Ø?©?ƒ:«?¡?‘SÄFÿ◊'—'”)ÅNÄFàFÿóëìÄJ‹êTò6†6®:”6–6r   )⁄i)r   r5   r   r   r   r   r    r#   r&   r(   r;   r3   r   r   ˙<module>r=      s@   Û 
-+€ € 
-+Ù-ê)Ù -ÚÛJÚÚ˜&Ò &Û	7r   
-\ No newline at end of file
