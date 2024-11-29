@@ -871,6 +871,48 @@ TEST(VeccopyTraces, OnDeviceCallbacks_teams_distribute_parallel_for_nowait) {
   }
 }
 
+TEST(VeccopyTraces, OnDeviceCallbacks_teams_distribute_parallel_for_nowait_w_timelimit) {
+  OMPT_SUPPRESS_EVENT(EventTy::Target);
+  OMPT_SUPPRESS_EVENT(EventTy::TargetSubmit);
+  OMPT_SUPPRESS_EVENT(EventTy::TargetDataOp);
+  OMPT_SUPPRESS_EVENT(EventTy::BufferRecordDeallocation);
+
+  OMPT_PERMIT_EVENT(EventTy::BufferRecord);
+
+  OMPT_ASSERT_SET_MODE_RELAXED();
+
+  const int N = 10000;
+  int a[N];
+  int b[N];
+
+  for (int i = 0; i < N; i++)
+    a[i] = 0;
+
+  for (int i = 0; i < N; i++)
+    b[i] = i;
+
+  // 2 data transfers TO device, 1 kernel, 2 data transfers FROM device
+  OMPT_GENERATE_EVENTS(5, OMPT_ASSERT_SET(BufferRequest, 0, nullptr, 0));
+  OMPT_GENERATE_EVENTS(
+      11, OMPT_ASSERT_SET(BufferComplete, 0, nullptr, 0, 0, false));
+  OMPT_ASSERT_SET(BufferRecord, CB_TARGET, TARGET, BEGIN);
+  OMPT_ASSERT_SET(BufferRecord, CB_DATAOP, H2D, N * sizeof(int), 10);
+  OMPT_ASSERT_SET(BufferRecord, CB_DATAOP, H2D, N * sizeof(int), 10);
+  OMPT_ASSERT_SET(BufferRecord, CB_DATAOP, D2H, N * sizeof(int), 10);
+  OMPT_ASSERT_SET(BufferRecord, CB_DATAOP, D2H, N * sizeof(int), 10);
+  OMPT_ASSERT_SET(BufferRecord, CB_DATAOP);
+  OMPT_ASSERT_SET(BufferRecord, CB_DATAOP);
+  OMPT_ASSERT_SET(BufferRecord, CB_DATAOP);
+  OMPT_ASSERT_SET(BufferRecord, CB_DATAOP);
+  OMPT_ASSERT_SET(BufferRecord, CB_KERNEL, {5000, 30000});
+  OMPT_ASSERT_SET(BufferRecord, CB_TARGET, TARGET, END);
+#pragma omp target teams distribute parallel for nowait map(a, b)
+  {
+    for (int j = 0; j < N; ++j)
+      a[j] = b[j];
+  }
+}
+
 // FIXME: Leave this suite here, so it gets discovered last and executed first.
 TEST(InitFiniSuite, DeviceLoad) {
   OMPT_SUPPRESS_EVENT(EventTy::Target)
