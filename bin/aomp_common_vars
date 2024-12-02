@@ -193,21 +193,22 @@ if [ "$AOMP_PROC" == "ppc64le" ] ; then
    AOMP_STANDALONE_BUILD=1
 fi
 AOMP_BUILD_DEBUG=${AOMP_BUILD_DEBUG:-1}
-AOMP_BUILD_SANITIZER=${AOMP_BUILD_SANITIZER:-1}
-
-# SANITIZER is used for ROCm builds, AOMP should use AOMP_BUILD_SANITIZER=1
-if [ "$SANITIZER" == 1 ] && [ "$AOMP_STANDALONE_BUILD" == 0 ]; then
-   AOMP_BUILD_SANITIZER=1
-fi
 
 if [ $AOMP_STANDALONE_BUILD == 1 ] ; then
    # Default is to build nvptx for STANDALONE build
    AOMP_BUILD_CUDA=${AOMP_BUILD_CUDA:-1}
    AOMP_BUILD_PERF=${AOMP_BUILD_PERF:-1}
+   AOMP_BUILD_SANITIZER=${AOMP_BUILD_SANITIZER:-1}
 else
    # Default is to NOT build nvptx for ROCm integrated build
    AOMP_BUILD_CUDA=${AOMP_BUILD_CUDA:-0}
    AOMP_BUILD_PERF=${AOMP_BUILD_PERF:-0}
+   # SANITIZER is used for ROCm builds, AOMP should use AOMP_BUILD_SANITIZER=1
+   if [ "$SANITIZER" == 1 ]; then
+      AOMP_BUILD_SANITIZER=${AOMP_BUILD_SANITIZER:-1}
+   else
+      AOMP_BUILD_SANITIZER=${AOMP_BUILD_SANITIZER:-0}
+   fi
 fi
 
 
