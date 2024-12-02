@@ -110,7 +110,7 @@ if [ "$AOMP_STANDALONE_BUILD" == 1 ] ; then
   if [ "$_hostarch" == "x86_64" ] ; then
     # These components build on x86_64, so add them to components list
     if [ "$AOMP_SKIP_FLANG" == 0 ] ; then
-      components="$components llvm-legacy flang-legacy pgmath flang flang_runtime"
+      components="$components llvm-classic flang-classic pgmath flang flang_runtime"
     fi
     #components="$components hipfort"
     components="$components hipcc hipamd "
@@ -136,10 +136,10 @@ else
   if [ -f "$AOMP_REPOS/$AOMP_PROJECT_REPO_NAME/offload/CMakeLists.txt" ]; then
     components="$components offload"
   fi
-  if [ "$SANITIZER" == 1 ] && [ -f $AOMP/bin/flang-legacy ] ; then
+  if [ "$SANITIZER" == 1 ] && [ -f $AOMP/bin/flang-classic ] ; then
     components="$components pgmath flang flang_runtime"
   else
-    components="$components llvm-legacy flang-legacy pgmath flang flang_runtime"
+    components="$components llvm-classic flang-classic pgmath flang flang_runtime"
   fi
 fi
 echo "COMPONENTS:$components"
@@ -187,7 +187,7 @@ for COMPONENT in $components ; do
    echo " =================  DONE INSTALLING COMPONENT $COMPONENT ==================="   
 done
 
-echo "------ Linking flang-new or flang-legacy to flang -------"
+echo "------ Linking flang-new or flang-classic to flang -------"
 if [ -L $LLVM_INSTALL_LOC/bin/flang ] ; then
   $SUDO rm $LLVM_INSTALL_LOC/bin/flang
 fi
@@ -206,8 +206,8 @@ echo
 
 if [ "$AOMP_STANDALONE_BUILD" -eq 0 ]; then
   cd $BUILD_DIR/build
-  legacy_version=`ls flang-legacy`
-  legacy_install_manifest=$legacy_version/install_manifest.txt
+  classic_version=`ls flang-classic`
+  classic_install_manifest=$classic_version/install_manifest.txt
   if [ "$SANITIZER" == 1 ]; then
     install_manifest_orig=asan/install_manifest.txt
   else
@@ -219,8 +219,8 @@ if [ "$AOMP_STANDALONE_BUILD" -eq 0 ]; then
 
   for directory in ./*/; do
     pushd $directory > /dev/null
-    if [[ "$directory" =~ "flang-legacy" ]]; then
-      install_manifest=$legacy_install_manifest
+    if [[ "$directory" =~ "flang-classic" ]]; then
+      install_manifest=$classic_install_manifest
     else
       install_manifest=$install_manifest_orig
     fi

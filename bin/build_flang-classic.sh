@@ -1,13 +1,13 @@
 #!/bin/bash
 # 
-#  build_flang-legacy.sh:  Script to build the legacy flang binary driver
+#  build_flang-classic.sh:  Script to build the flang-classic binary driver
 #         This driver will never call flang -fc1, it only calls binaries 
 #             clang, flang1, flang2, build elsewhere
 #  Instead of downloading the ROCm 5.5 llvm package we have to
 #  compile the 11vm/clang libs from source to support various
-#  operating systems and spack. This will be the llvm-legacy build step.
+#  operating systems and spack. This will be the llvm-classic build step.
 #  These libs/headers are not installed and will picked up from the build
-#  tree for flang-legacy.
+#  tree for flang-classic.
 #
 BUILD_TYPE=${BUILD_TYPE:-Release}
 
@@ -17,10 +17,10 @@ thisdir=`dirname $realpath`
 . $thisdir/aomp_common_vars
 # --- end standard header ----
 
-if [ $AOMP_BUILD_FLANG_LEGACY == 0 ] ; then
+if [ $AOMP_BUILD_FLANG_CLASSIC == 0 ] ; then
    if [ "$1" != "install" ] ; then
-      echo "WARNING:  ROCM install for $AOMP_FLANG_LEGACY_REL/llvm-legacy not found."
-      echo "          This build will skip build of flang-legacy."
+      echo "WARNING:  ROCM install for $AOMP_FLANG_CLASSIC_REL/llvm-classic not found."
+      echo "          This build will skip build of flang-classic."
       echo "          The flang will link to the clang driver."
    fi
    exit
@@ -45,19 +45,19 @@ else
   _cxx_flag=""
 fi
 
-# We need a version of ROCM llvm that supports legacy flang 
+# We need a version of ROCM llvm that supports flang-classic 
 # via the link from flang to clang.  rocm 5.5 would be best. 
-# This will enable removal of legacy flang driver support 
+# This will enable removal of flang-classic driver support 
 # from clang to make way for flang-new.  
 
-# Options for llvm-legacy cmake.
+# Options for llvm-classic  cmake.
 TARGETS_TO_BUILD="AMDGPU;X86"
 
 # Do not change the AOMP_LFL_DIR default because it is the subdirectory
-# from where we build the flang-legacy driver binary.  This is the
+# from where we build the flang-classic driver binary.  This is the
 # Last Frozen LLVM (LFL) for which there is amd-only clang driver support
 # for flang.  Originally there was no subdirectory for LFL so setting
-# AOMP_LFL_DIR to "/" would build flang-legacy with the original
+# AOMP_LFL_DIR to "/" would build flang-classic with the original
 # ROCm 5.6 sources.
 AOMP_LFL_DIR=${AOMP_LFL_DIR:-"17.0-4"}
 # comment out above line and uncomment next line for new LFL
@@ -111,30 +111,30 @@ shopt -s extglob
 
 if [ "$1" != "nocmake" ] && [ "$1" != "install" ] ; then
    echo
-   echo "This is a FRESH START. ERASING any previous builds in $BUILD_DIR/build/flang-legacy/$AOMP_LFL_DIR"
+   echo "This is a FRESH START. ERASING any previous builds in $BUILD_DIR/build/flang-classic/$AOMP_LFL_DIR"
    echo "Use ""$0 nocmake"" or ""$0 install"" to avoid FRESH START."
-   if [ -d "$BUILD_DIR/build/flang-legacy/$AOMP_LFL_DIR" ]; then
+   if [ -d "$BUILD_DIR/build/flang-classic/$AOMP_LFL_DIR" ]; then
      # This needs extglob enabled, as set above.
-     rm -rf "$BUILD_DIR/build/flang-legacy/$AOMP_LFL_DIR"/!("llvm-legacy")
+     rm -rf "$BUILD_DIR/build/flang-classic/$AOMP_LFL_DIR"/!("llvm-classic")
    else
-     echo "ERROR: Build llvm-legacy before flang-legacy."
+     echo "ERROR: Build llvm-classic before flang-classic."
      exit 1
    fi
 else
-   if [ ! -d $BUILD_DIR/build/flang-legacy/$AOMP_LFL_DIR ] ; then
-      echo "ERROR: The build directory $BUILD_DIR/build/flang-legacy/$AOMP_LFL_DIR does not exist"
+   if [ ! -d $BUILD_DIR/build/flang-classic/$AOMP_LFL_DIR ] ; then
+      echo "ERROR: The build directory $BUILD_DIR/build/flang-classic/$AOMP_LFL_DIR does not exist"
       echo "       run $0 without nocmake or install options. "
       exit 1
    fi
 fi
 
 echo
-# Cmake flang-legacy.
+# Cmake flang-classic.
 if [ "$1" != "nocmake" ] && [ "$1" != "install" ] ; then
-   cd $BUILD_DIR/build/flang-legacy/$AOMP_LFL_DIR
+   cd $BUILD_DIR/build/flang-classic/$AOMP_LFL_DIR
    echo " -----Running cmake ---- " 
-   echo ${AOMP_CMAKE} $MYCMAKEOPTS  $AOMP_REPOS/$AOMP_FLANG_REPO_NAME/flang-legacy/$AOMP_LFL_DIR
-   ${AOMP_CMAKE} $MYCMAKEOPTS  $AOMP_REPOS/$AOMP_FLANG_REPO_NAME/flang-legacy/$AOMP_LFL_DIR 2>&1
+   echo ${AOMP_CMAKE} $MYCMAKEOPTS  $AOMP_REPOS/$AOMP_FLANG_REPO_NAME/flang-classic/$AOMP_LFL_DIR
+   ${AOMP_CMAKE} $MYCMAKEOPTS  $AOMP_REPOS/$AOMP_FLANG_REPO_NAME/flang-classic/$AOMP_LFL_DIR 2>&1
    if [ $? != 0 ] ; then 
       echo "ERROR cmake failed. Cmake flags"
       echo "      $MYCMAKEOPTS"
@@ -148,15 +148,15 @@ fi
 
 echo
 
-# Build flang-legacy.
-echo " ---  Running $AOMP_NINJA_BIN for $BUILD_DIR/build/flang-legacy/$AOMP_LFL_DIR ---- "
-cd $BUILD_DIR/build/flang-legacy/$AOMP_LFL_DIR
+# Build flang-classic.
+echo " ---  Running $AOMP_NINJA_BIN for $BUILD_DIR/build/flang-classic/$AOMP_LFL_DIR ---- "
+cd $BUILD_DIR/build/flang-classic/$AOMP_LFL_DIR
 $AOMP_NINJA_BIN -j $AOMP_JOB_THREADS
 if [ $? != 0 ] ; then
       echo " "
       echo "ERROR: $AOMP_NINJA_BIN -j $AOMP_JOB_THREADS  FAILED"
       echo "To restart:"
-      echo "  cd $BUILD_DIR/build/flang-legacy/$AOMP_LFL_DIR"
+      echo "  cd $BUILD_DIR/build/flang-classic/$AOMP_LFL_DIR"
       echo "  $AOMP_NINJA_BIN"
       exit 1
 fi
@@ -168,13 +168,13 @@ if [ "$1" == "install" ] ; then
       echo "ERROR make install failed "
       exit 1
    fi
-   if [ $AOMP_BUILD_FLANG_LEGACY == 1 ] ; then
-      echo "------ Linking flang-legacy to flang -------"
+   if [ $AOMP_BUILD_FLANG_CLASSIC == 1 ] ; then
+      echo "------ Linking flang-classic to flang -------"
       if [ -L $AOMP_INSTALL_DIR/bin/flang ] ; then
          $SUDO rm $AOMP_INSTALL_DIR/bin/flang
       fi
       cd $LLVM_INSTALL_LOC/bin
-      $SUDO ln -sf flang-legacy flang
+      $SUDO ln -sf flang-classic flang
    fi
    echo
    echo "SUCCESSFUL INSTALL to $AOMP_INSTALL_DIR"

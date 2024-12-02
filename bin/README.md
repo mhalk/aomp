@@ -27,7 +27,8 @@ each component build script with the name build_\<component name\>.sh .
 | extras    | aomp-dev   | $HOME/git/aomp20.0/aomp-extras         | [aomp-extras](https://github.com/ROCm/aomp-extras)
 | flang     | aomp-dev   | $HOME/git/aomp20.0/flang               | [flang](https://github.com/ROCm/flang)
 | pgmath    | aomp-dev   | $HOME/git/aomp20.0/flang/runtime/libpgmath | [flang](https://github.com/ROCm/flang)
-| flang-legacy | aomp-dev   | $HOME/git/aomp20.0/flang/flang-legacy/17.0-4 | [flang](https://github.com/ROCm/flang/flang-legacy/17.0-4/llvm-legacy)
+| llvm-classic  | aomp-dev | $HOME/git/aomp20.0/flang/flang-classic/17.0-4/llvm-classic | [flang](https://github.com/ROCm/flang/flang-classic/17.0-4/llvm-classic)
+| flang-classic | aomp-dev | $HOME/git/aomp20.0/flang/flang-classic/17.0-4 | [flang](https://github.com/ROCm/flang/flang-classic/17.0-4)
 | flang_runtime | aomp-dev | $HOME/git/aomp20.0/flang             | [flang](https://github.com/ROCm/flang)
 ||           |                                        |
 | roct       |Latest ROCm| $HOME/git/aomp20.0/roct-thunk-interfaces | [roct-thunk-interfaces](https://github.com/ROCm/roct-thunk-interface)
@@ -237,8 +238,8 @@ any fails occur.
    ./build_comgr.sh install
    ./build_rocminfo.sh
    ./build_rocminfo.sh install
-   ./build_flang-legacy.sh
-   ./build_flang-legacy.sh install
+   ./build_flang-classic.sh
+   ./build_flang-classic.sh install
    ./build_pgmath.sh
    ./build_pgmath.sh install
    ./build_flang.sh
