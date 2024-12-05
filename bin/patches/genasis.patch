@@ -279,3 +279,19 @@ index 2f8cd18a..aa5b4ac0 100644
  
      type ( ConsoleSingleton ), intent ( inout ) :: &
        C
+diff --git a/Programs/Examples/Basics/FluidDynamics/PlaneWaveAdvection_Template.f90 b/Programs/Examples/Basics/FluidDynamics/PlaneWaveAdvection_Template.f90
+index a2d813c..335e77b 100644
+--- a/Programs/Examples/Basics/FluidDynamics/PlaneWaveAdvection_Template.f90
++++ b/Programs/Examples/Basics/FluidDynamics/PlaneWaveAdvection_Template.f90
+@@ -102,9 +102,11 @@ contains
+     VZ = K ( 3 ) / ( dot_product ( K, K ) * Period )
+
+     end associate !-- K
+
++    call PF % UpdateDevice ( )
+     call PF % ComputeAuxiliary ( PF % Value )
+     call PF % ComputeConserved ( PF % Value )
++    call PF % UpdateHost ( )
+
+     !-- FIXME: Implicit do-loop array needed to workaround Cray compiler
+     !          crashes for elemental function argument of array and scalar
