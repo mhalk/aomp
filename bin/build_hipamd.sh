@@ -120,7 +120,7 @@ if [ "$1" != "nocmake" ] && [ "$1" != "install" ] ; then
   fi
 
   if [ "$AOMP_BUILD_DEBUG" == 1 ]; then
-     HIPAMD_DEBUG_CMAKE_OPTS="$MYCMAKEOPTS $AOMP_DEBUG_ORIGIN_RPATH -DCMAKE_BUILD_TYPE=DEBUG -DCMAKE_INSTALL_LIBDIR=lib-debug -DCMAKE_C_COMPILER=$LLVM_INSTALL_LOC/bin/clang -DCMAKE_CXX_COMPILER=$LLVM_INSTALL_LOC/bin/clang++ -DHIP_LLVM_ROOT=$LLVM_INSTALL_LOC"
+     HIPAMD_DEBUG_CMAKE_OPTS="$MYCMAKEOPTS $AOMP_DEBUG_ORIGIN_RPATH -DCMAKE_BUILD_TYPE=DEBUG -DCMAKE_PREFIX_PATH=$AOMP_INSTALL_DIR;$HOME/local/openclicdloader -DCMAKE_INSTALL_LIBDIR=lib-debug -DCMAKE_C_COMPILER=$LLVM_INSTALL_LOC/bin/clang -DCMAKE_CXX_COMPILER=$LLVM_INSTALL_LOC/bin/clang++ -DHIP_LLVM_ROOT=$LLVM_INSTALL_LOC"
   fi
 
   HIPAMD_CMAKE_OPTS="$MYCMAKEOPTS -DCMAKE_PREFIX_PATH=$AOMP_INSTALL_DIR;$HOME/local/openclicdloader -DCMAKE_INSTALL_LIBDIR=lib -DCMAKE_CXX_FLAGS=-I${AOMP_INSTALL_DIR}/include/amd_comgr -DCMAKE_CXX_FLAGS=-Wno-error=deprecated-declarations -DCMAKE_C_FLAGS=-Wno-error=deprecated-declarations -DHIP_LLVM_ROOT=$LLVM_INSTALL_LOC $AOMP_ORIGIN_RPATH"
@@ -132,10 +132,10 @@ if [ "$1" != "nocmake" ] && [ "$1" != "install" ] ; then
   echo
   echo " -----Running hipamd cmake ---- "
   echo ${AOMP_CMAKE} $HIPAMD_CMAKE_OPTS $HIPAMD_DIR
-  ${AOMP_CMAKE} $MYCMAKEOPTS $HIPAMD_DIR
+  ${AOMP_CMAKE} $HIPAMD_CMAKE_OPTS $HIPAMD_DIR
   if [ $? != 0 ] ; then
       echo "ERROR hipamd cmake failed. Cmake flags"
-      echo "      $MYCMAKEOPTS"
+      echo "      $HIPAMD_CMAKE_OPTS"
       exit 1
   fi
 
