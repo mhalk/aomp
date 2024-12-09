@@ -1,12 +1,26 @@
 include ../Makefile.defs
 
 TESTS_DIR = \
-    hip-global-buffer-overflow \
-    hip-heap-buffer-overflow \
-    hip-use-after-free \
-    omp-global-buffer-overflow \
-    omp-heap-buffer-overflow \
-    omp-heap-use-after-free
+    hip-gbo \
+    hip-hbo \
+    hip-uaf \
+    hip-device-malloc-hbo \
+    hip-device-free-uaf \
+    hip-static-direct-lbo \
+    hip-dynamic-direct-lbo \
+    hip-static-indirect-lbo \
+    hip-dynamic-indirect-lbo \
+    hip-function-parameters-lbo \
+    omp-gbo \
+    omp-hbo \
+    omp-uaf \
+    omp-device-malloc-hbo \
+    omp-device-free-hbo \
+    omp-static-direct-lbo \
+    omp-dynamic-direct-lbo \
+    omp-static-indirect-lbo \
+    omp-dynamic-indirect-lbo \
+    omp-function-parameters-lbo
 
 all:
 	@for test_dir in $(TESTS_DIR); do \
