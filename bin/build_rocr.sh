@@ -101,7 +101,7 @@ if [ "$1" != "nocmake" ] && [ "$1" != "install" ] ; then
       echo " -----Running rocr_debug cmake -----"
       mkdir -p  $BUILD_AOMP/build/rocr_debug
       cd $BUILD_AOMP/build/rocr_debug
-      _prefix_map="\""-fdebug-prefix-map=$AOMP_REPOS/$AOMP_ROCR_REPO_NAME/src=$_ompd_src_dir/rocr/src"\"" 
+      _prefix_map="\""-fdebug-prefix-map=$AOMP_REPOS/$AOMP_ROCR_REPO_NAME=$_ompd_src_dir/rocr"\""
       echo ${AOMP_CMAKE} $ROCR_CMAKE_OPTS -DCMAKE_C_FLAGS="-g $_prefix_map" -DCMAKE_CXX_FLAGS="-g $_prefix_map" $AOMP_REPOS/$AOMP_ROCR_REPO_NAME
       ${AOMP_CMAKE} $ROCR_CMAKE_OPTS -DCMAKE_C_FLAGS="-g $_prefix_map" -DCMAKE_CXX_FLAGS="-g $_prefix_map" $AOMP_REPOS/$AOMP_ROCR_REPO_NAME
       if [ $? != 0 ] ; then
@@ -188,13 +188,15 @@ if [ "$1" == "install" ] ; then
             echo "ERROR make install for rocr  failed "
             exit 1
          fi
-	$SUDO mkdir -p $_ompd_src_dir/rocr
-        $SUDO cp -r $AOMP_REPOS/$AOMP_ROCR_REPO_NAME/src $_ompd_src_dir/rocr
-        # remove non-source files to save space
-        find $_ompd_src_dir/rocr/src  -type f  | grep  -v "\.cpp$\|\.h$\|\.hpp$" | xargs rm
-        rm -rf $_ompd_src_dir/rocr/src/RPM
-        rm -rf $_ompd_src_dir/rocr/src/DEBIAN
-        rm -rf $_ompd_src_dir/rocr/src/cmake_modules
+	 # copy rocr sources into the installation for runtime source debugging
+	 _dirs="runtime/hsa-runtime/image runtime/hsa-runtime/inc runtime/hsa-runtime/core runtime/hsa-runtime/loader runtime/hsa-runtime/pcs libhsakmt/src libhsakmt/include"
+         for _dirname in $_dirs ; do
+            $SUDO mkdir -p $_ompd_src_dir/rocr/$_dirname
+            echo cp -r $AOMP_REPOS/$AOMP_ROCR_REPO_NAME/$_dirname/ $_ompd_src_dir/rocr/$_dirname/
+            $SUDO cp -r $AOMP_REPOS/$AOMP_ROCR_REPO_NAME/$_dirname/ $_ompd_src_dir/rocr/$_dirname/
+         done
+         # remove non-source files to save space
+         find $_ompd_src_dir/rocr  -type f  | grep  -v "\.cpp$\|\.h$\|\.hpp$\|\.c$\|\.s$" | xargs rm
       fi
       removepatch $AOMP_REPOS/$AOMP_ROCR_REPO_NAME
 fi
