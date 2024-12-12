@@ -292,6 +292,9 @@ if [ "$1" == "install" ] ; then
    amd_compiler_symlinks=("amdclang" "amdclang++" "amdclang-cl" "amdclang-cpp" "amdflang" "amdlld")
    if [ "$AOMP_SKIP_FLANG_NEW" == 1 ]; then
      amd_compiler_cfg=("clang" "clang++" "clang-cpp" "clang-${AOMP_MAJOR_VERSION}" "clang-cl" "flang")
+     if [ -h $LLVM_INSTALL_LOC/bin/amdflang-new ]; then
+       rm -f $LLVM_INSTALL_LOC/bin/amdflang-new
+     fi
    else
      amd_compiler_cfg=("clang" "clang++" "clang-cpp" "clang-${AOMP_MAJOR_VERSION}" "clang-cl" "flang" "flang-new")
      # amdflang-new -> amdllvm symlink
