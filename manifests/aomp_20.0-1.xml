@@ -9,6 +9,7 @@
     <remote name="rocsw"  fetch="https://github.com/ROCm/" />
 
     <project remote="roc" path="llvm-project" name="llvm-project" revision="aomp-20.0-1" groups="unlocked" />
+    <project remote="roc" path="SPIRV-LLVM-Translator" name="SPIRV-LLVM-Translator"    revision="aomp-20.0-1" groups="unlocked" />
 
     <project remote="roctools" path="flang" name="flang"               revision="aomp-20.0-1" groups="unlocked" />
     <project remote="roctools" path="aomp-extras" name="aomp-extras"   revision="aomp-20.0-1" groups="unlocked" />
