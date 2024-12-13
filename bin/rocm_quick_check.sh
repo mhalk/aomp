@@ -1,4 +1,7 @@
 #!/bin/bash
+if [ -e /usr/lib/aomp ]; then
+  echo "bad version of aomp installed, please uninstall: /usr/lib/aomp"
+fi
 echo listing /opt 
 ls /opt
 find /opt/rocm* -name clang
