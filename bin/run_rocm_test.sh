@@ -19,7 +19,9 @@ export ROCR_VISIBLE_DEVICES=0
 export CLEANUP=0
 
 # whats the OS ?
-grep PRETTY_NAME /etc/os-release
+cat /etc/os-release
+rocm-smi
+rocminfo
 
 if [ -e /usr/sbin/lspci ]; then
   lspci_loc=/usr/sbin/lspci
@@ -166,7 +168,7 @@ if [ "$aomp" != 1 ]; then
       rm -rf $tmpdir
       mkdir -p $tmpdir
       # Determine OS and download package not using sudo.
-      if [[ "$os_name" =~ "Ubuntu" ]]; then
+      if [[ "$os_name" =~ "Ubuntu" ]] || [[ "$os_name" =~ "Debian GNU/Linux" ]]; then
         cd $tmpdir
         apt-get download $test_package_name
         test_package=$(ls -lt $tmpdir | grep -Eo -m1 openmp-extras-tests.*)
@@ -196,7 +198,7 @@ if [ "$aomp" != 1 ]; then
 	test_package=$(ls -lt $tmpdir | grep -Eo -m1 openmp-extras-tests.*)
 	extract_rpm $test_package
       else
-        echo "Error: Could not determine operating system name."
+        echo "Error: Could not determine operating system package manager type."
         exit 1
       fi
     # Environment already has test package
