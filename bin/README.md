@@ -23,6 +23,7 @@ each component build script with the name build_\<component name\>.sh .
 | --------- | ---------- | --------------------------           | ----------------
 | (aomp)    | aomp-dev   | $HOME/git/aomp20.0/aomp                | [aomp](https://github.com/ROCm/aomp) This repo!
 | project   | amd-staging | $HOME/git/aomp20.0/llvm-project      | [llvm-project](https://github.com/ROCm/llvm-project)
+| SPIRV-LLVM-Translator   | amd-staging | $HOME/git/aomp20.0/SPIRV-LLVM-Translator      | [llvm-project](https://github.com/ROCm/SPIRV-LLVM-Translator)
 | rocprofiler-register   | Latest ROCm | $HOME/git/aomp20.0/rocprofiler-register     | [rocprofiler-register](https://github.com/ROCm/rocprofiler-register)
 | openmp    | amd-staging | $HOME/git/aomp20.0/llvm-project/openmp | [llvm-project/openmp](https://github.com/ROCm/llvm-project)
 | extras    | aomp-dev   | $HOME/git/aomp20.0/aomp-extras         | [aomp-extras](https://github.com/ROCm/aomp-extras)
