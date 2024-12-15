@@ -19,7 +19,7 @@ The AOMP bin directory (which includes the standard clang and llvm binaries) is 
 These commands are for supported Debian-based systems and target only the amdgpu_dkms core component.
 Install kernel headers:
 ```
-  sudo apt install "linux-headers-$(uname -r)" "linux-modules-extra-$(uname -r)"
+sudo apt install "linux-headers-$(uname -r)" "linux-modules-extra-$(uname -r)"
 ```
 ```
 sudo mkdir --parents --mode=0755 /etc/apt/keyrings

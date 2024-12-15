@@ -67,6 +67,7 @@ There is a "list" option on the clone\_aomp.sh that provides useful information 
 The above command will produce output like this showing you the location and branch of the repos in the AOMP\_REPOS directory and if there are any discrepencies with respect to the manifest file.<br>
 
 <b>USED manifest file: /work/grodgers/git/aomp20.0/aomp/bin/../manifests/aompi_20.0.xml</b><br>
+```
   repo src       branch                 path                 repo name    last hash    updated           commitor         for author
   --------       ------                 ----                 ---------    ---------    -------           --------         ----------
  gerritgit  amd-staging         llvm-project lightning/ec/llvm-project f986706166c9 2023-12-06      Ron Lieberman            JP Lehr

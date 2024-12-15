@@ -4,10 +4,6 @@ AOMP will install to /usr/lib/aomp. The AOMP environment variable will automatic
 wget https://github.com/ROCm-Developer-Tools/aomp/releases/download/rel_20.0-1/aomp_SLES15_SP5-20.0-1.x86_64.rpm
 sudo rpm -i aomp_SLES15_SP5-20.0-1.x86_64.rpm
 ```
-Confirm AOMP environment variable is set:
-```
-echo $AOMP
-```
 
 ## Prerequisites
 The ROCm kernel driver is required for AMD GPU support.

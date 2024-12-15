@@ -53,7 +53,8 @@ RHEL 9
 
 ### 2. User-installed Python Components
 
-After all the required system package from section 1 are installed, there are some python packages that must be locally installed by the user building AOMP. Use this command to install these.  Do not install these as root.
+After all the required system package from section 1 are installed, there are some python packages that must be locally installed by the user building AOMP. Use this command to install these.  Do not install these as root.  
+
 Ubuntu 22.04
 ```
   python3 -m pip install --ignore-installed --no-cache-dir barectf==3.1.2 PyYAML==5.3.1; python3 -m pip install CppHeaderParser argparse wheel lit lxml pandas
@@ -61,7 +62,7 @@ Ubuntu 22.04
 
 Ubuntu 24.04
 ```
-python3 -m venv /opt/venv; PATH=/opt/venv/bin:$PATH python3 -m pip install CppHeaderParser argparse lxml pandas setuptools PyYAML pandas
+  python3 -m venv /opt/venv; PATH=/opt/venv/bin:$PATH python3 -m pip install CppHeaderParser argparse lxml pandas setuptools PyYAML pandas
 ```
 
 RHEL 8/9 and SLES15
@@ -78,7 +79,7 @@ which is called by build_aomp.sh. The distribution cmake installed above is only
 the first execution of build_prereq.sh. The AOMP build scripts are found in the bin directory of the aomp repository and are described in the developwer README.
 
 ### 4. Verify KFD Driver
-
+#### IMPORTANT: We strongly recommend installing the amdgpu-dkms from 6.3 due to bug fixes.  
 Please verify you have the proper software installed as AOMP needs certain support to function properly, such as the KFD driver (amdgpu-dkms) for AMD GPUs.
 More information can be found [HERE](https://rocmdocs.amd.com/en/latest/Installation_Guide/Installation-Guide.html).
 
@@ -111,7 +112,7 @@ Update and Install:
 #### SUSE SLES-15-SP5 Support
 Install kernel headers:
 ```
-sudo zypper install kernel-default-devel
+  sudo zypper install kernel-default-devel
 ```
 ```
 sudo tee /etc/zypp/repos.d/amdgpu.repo <<EOF
@@ -144,12 +145,11 @@ priority=50
 gpgcheck=1
 gpgkey=https://repo.radeon.com/rocm/rocm.gpg.key
 EOF
-
-sudo dnf clean all
 ```
 
 Install amdgpu-dkms:
 ```
+  sudo dnf clean all
   sudo dnf install amdgpu-dkms
   sudo reboot
 ```
@@ -169,12 +169,11 @@ priority=50
 gpgcheck=1
 gpgkey=https://repo.radeon.com/rocm/rocm.gpg.key
 EOF
-
-sudo dnf clean all
 ```
 
 Install amdgpu-dkms:
 ```
+  sudo dnf clean all
   sudo dnf install amdgpu-dkms
   sudo reboot
 ```
