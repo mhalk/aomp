@@ -4,8 +4,6 @@
 
 #include <type_traits>
 
- 
-
 template<typename Type>
 
 void set_to_zero(Type * data, int N){
@@ -28,7 +26,7 @@ int main(){
 
     double sum = 0.0;
 
-    #pragma omp target teams distribute parallel for reduction(+:sum) map(tofrom:sum)   if(N > 1000)
+    #pragma omp target teams distribute parallel for map(tofrom:sum)  if(N > 1000)  reduction(+:sum)
 
     for (int i = 0; i < N; ++i)
 
