@@ -1,19 +1,19 @@
-P_PLATFORM_AMD__ 1
+#define __HIP_PLATFORM_AMD__ 1
 #include <hip/hip_runtime.h>
 
 #define SHMEM_SIZE 32
+#define NOINLINE __attribute__((noinline))
 
 void printHipError(hipError_t error) {
   printf("Hip Error: %s\n", hipGetErrorString(error));
 }
 
 bool hipCallSuccessfull(hipError_t error) {
-  if (error != hipSuccess)
-    printHipError(error);
+  if (error != hipSuccess) printHipError(error);
   return error == hipSuccess;
 }
 
-__device__ void OffloadToGPU(int *d_ptr){
+NOINLINE __device__ void TestFunction(int *d_ptr) {
   extern __shared__ int lds_ptr[];
   size_t iX = blockDim.x * blockIdx.x + threadIdx.x;
   lds_ptr[iX] = 2 * (iX + 1);
@@ -21,9 +21,7 @@ __device__ void OffloadToGPU(int *d_ptr){
   d_ptr[iX] = lds_ptr[iX];
 }
 
-__global__ void TestKernel(int *d_ptr) {
-  OffloadToGPU(d_ptr);
-}
+__global__ void TestKernel(int *d_ptr) { TestFunction(d_ptr); }
 
 int main(int argc, char *argv[]) {
   int N = 33;
@@ -34,8 +32,8 @@ int main(int argc, char *argv[]) {
   int ThreadBlockSize = 64;
   hipCallSuccessfull(hipMalloc(&D_Ptr, NBytes));
   hipCallSuccessfull(hipMemset(D_Ptr, 1, NBytes));
-  hipLaunchKernelGGL(TestKernel,dim3(NumOfThreadBlocks),dim3(ThreadBlockSize), SHMEM_SIZE, 0, D_Ptr);
-  hipDeviceSynchronize();
+  hipLaunchKernelGGL(TestKernel, dim3(NumOfThreadBlocks), dim3(ThreadBlockSize),
+		     SHMEM_SIZE, 0, D_Ptr);
   hipCallSuccessfull(hipMemcpy(H_Ptr, D_Ptr, NBytes, hipMemcpyDeviceToHost));
   hipCallSuccessfull(hipFree(D_Ptr));
   delete[] H_Ptr;
@@ -45,7 +43,6 @@ int main(int argc, char *argv[]) {
 /// CHECK:=================================================================
 /// CHECK-NEXT:=={{[0-9]+}}==ERROR: AddressSanitizer: heap-buffer-overflow on amdgpu device 0 at pc [[PC:0x[0-9a-fA-F]+]]
 /// CHECK-NEXT:WRITE of size 4 in workgroup id (0,0,{{[0-9]+}})
-/// CHECK-NEXT:  #0 [[PC]] in OffloadToGPU(int*) at {{.*}}/aomp/test/smoke-asan/hip-dynamic-indirect-lbo/hip-dynamic-indirect-lbo.cpp:19:{{[0-9]+}}
-/// CHECK-NEXT: (inlined by) TestKernel(int*) at {{.*}}/aomp/test/smoke-asan/hip-dynamic-indirect-lbo/hip-dynamic-indirect-lbo.cpp:25:{{[0-9]+}}
+/// CHECK-NEXT:  #0 [[PC]] in TestFunction(int*) at {{.*}}/aomp/test/smoke-asan/hip-dynamic-indirect-lbo/hip-dynamic-indirect-lbo.cpp:19:{{[0-9]+}}
 /// CHECK:{{0x[0-9a-fA-F]+}} is 64 bytes above an address from a device malloc (or free) call of size 64 from
 /// CHECK-NEXT:  #0 0xfffffffffffffffc in ?? at ??:0:0

@@ -26,7 +26,6 @@ int main(int argc, char *argv[]) {
   int ThreadBlockSize = 64;
   hipCallSuccessfull(hipMalloc(&D_Ptr, NBytes));
   hipLaunchKernelGGL(TestKernel, dim3(NumOfThreadBlocks), dim3(ThreadBlockSize), 0, 0, N);
-  hipDeviceSynchronize();
   hipCallSuccessfull(hipMemcpy(H_Ptr, D_Ptr, NBytes, hipMemcpyDeviceToHost));
   hipCallSuccessfull(hipFree(D_Ptr));
   delete[] H_Ptr;
