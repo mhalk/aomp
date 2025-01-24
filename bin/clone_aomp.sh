@@ -261,10 +261,6 @@ if [[ "$AOMP_VERSION" == "13.1" ]] || [[ $AOMP_MAJOR_VERSION -gt 13 ]] ; then
       repogitname=$name
       if [ "$remote" == "roc" ] ; then
          repo_web_location=$GITROC
-      elif [ "$remote" == "roctools" ] ; then
-         repo_web_location=$GITROCDEV
-      elif [ "$remote" == "rocsw" ] ; then
-         repo_web_location=$GITROCSW
       elif [ "$remote" == "gerritgit" ] ; then
          repo_web_location=$GITGERRIT
       elif [ "$remote" == "hwloc" ] ; then
