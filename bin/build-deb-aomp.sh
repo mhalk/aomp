@@ -69,6 +69,8 @@ else
     rm -f $tmpfile
     cp $BUILD_DIR/build/rocmlibs/installed_files.txt $tmpfile
     sed -i -e "s/\/usr\/lib\/$dirname\///g" $tmpfile
+    echo "rocblas" >> $tmpfile
+    echo "lib/rocblas" >> $tmpfile
   fi
   rsync -a $sourcedir"/" --exclude ".*" --exclude-from=$tmpfile $froot$installdir
 fi
