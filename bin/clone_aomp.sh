@@ -149,7 +149,7 @@ function list_repo_from_manifest(){
    else
       printbranch=${REPO_RREV##*release/}
    fi
-   url=`grep url .git/config | cut -d":" -f2- | cut -d"/" -f3-`
+   url=`grep url .git/config | grep -v google | grep -v fmtlib | cut -d":" -f2- | cut -d"/" -f3-`
    project_name=`echo $url | cut -d"/" -f2- | tr '[:upper:]' '[:lower:]'`
    REPO_PROJECT=${REPO_PROJECT%*\.git}
    if [[ "$REPO_REMOTE" == "githubemu-lightning" ]] ; then
