@@ -23,7 +23,7 @@
     <project remote="roc" path="rocm_smi_lib" name="rocm_smi_lib"                 revision="rocm-6.3.x" groups="unlocked" />
     <project remote="roc" path="amdsmi" name="amdsmi"                             revision="rocm-6.3.x" groups="unlocked" />
     <project remote="roc" path="rocm-cmake" name="rocm-cmake"                     revision="release/rocm-rel-6.3" groups="unlocked" />
-    <project remote="roc" path="rocr-runtime" name="ROCR-Runtime"                 revision="release/rocm-rel-6.3.x" groups="unlocked" />
+    <project remote="roc" path="rocr-runtime" name="ROCR-Runtime"                 revision="rocm-6.3.x" groups="unlocked" />
     <project remote="roc" path="rocprofiler-register" name="rocprofiler-register" revision="rocm-6.3.x" groups="unlocked" />
     <project remote="roc" path="hipfort" name="hipfort"                 revision="release/rocm-rel-6.3" groups="unlocked" />
 </manifest>
