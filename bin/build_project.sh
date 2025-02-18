@@ -67,12 +67,6 @@ if [ "$AOMP_USE_NINJA" == 0 ] ; then
 else
     AOMP_SET_NINJA_GEN="-G Ninja"
 fi
-#  If offload-arch tool exists do not build amdgpu-arch
-if [ -d $AOMP_REPOS/$AOMP_PROJECT_REPO_NAME/llvm/lib/OffloadArch ] ; then 
-  enable_amdgpu_arch=""
-else
-  enable_amdgpu_arch="-DENABLE_AMDGPU_ARCH_TOOL=ON"
-fi
 
 if [ "$AOMP_LEGACY_OPENMP" != 0 ]; then
   LLVM_RUNTIMES="libcxx;libcxxabi;libunwind;compiler-rt"
@@ -91,7 +85,6 @@ MYCMAKEOPTS="-DCMAKE_BUILD_TYPE=$BUILD_TYPE
  -DLLVM_VERSION_SUFFIX=_AOMP${standalone_word}_$AOMP_VERSION_STRING
  -DCLANG_VENDOR=AOMP${standalone_word}_$AOMP_VERSION_STRING
  -DCLANG_DEFAULT_PIE_ON_LINUX=0
- $enable_amdgpu_arch
  -DBUG_REPORT_URL='https://github.com/ROCm-Developer-Tools/aomp'
  -DLLVM_ENABLE_BINDINGS=OFF
  -DLLVM_INCLUDE_BENCHMARKS=OFF
