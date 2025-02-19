@@ -23,6 +23,16 @@ cat /etc/os-release
 rocm-smi
 rocminfo
 
+# Export SKIP_USM=1 if xnack can not be turned ON, even with HSA_XNACK=1.
+# Makefile.defs uses SKIP_USM env var to disable compilation and execution
+# of the tests which require USM support.
+SKIP_USM=0
+XNACK_PLUS=$(HSA_XNACK=1 rocminfo | grep -i "xnack+" | wc -l)
+if [ $XNACK_PLUS -eq 0 ]; then
+  SKIP_USM=1
+fi
+export SKIP_USM=$SKIP_USM
+
 if [ -e /usr/sbin/lspci ]; then
   lspci_loc=/usr/sbin/lspci
 else
@@ -44,19 +54,16 @@ if [ $? -eq 0 ] ; then
   export ISVIRT=1
 fi
 if [ $ISVIRT -eq 1 ] ; then
+  $lspci_loc 2>&1 | grep -qi Virtio
+  if [ $? -eq 0 ] ; then
+    export ISVIRT=1
+  fi
 
-$lspci_loc 2>&1 | grep -qi Virtio
-if [ $? -eq 0 ] ; then
-  export ISVIRT=1
-fi
+  export HSA_XNACK=${HSA_XNACK:-0}
 
-SKIP_USM=1
-export SKIP_USM=1
-export HSA_XNACK=${HSA_XNACK:-0}
-
-# Set this flag to 1 to report error instead of warning when USM tests are being
-# run on configurations that do not support USM.
-export OMPX_STRICT_SANITY_CHECKS={OMPX_STRICT_SANITY_CHECKS:-1}
+  # Set this flag to 1 to report error instead of warning when USM tests are being
+  # run on configurations that do not support USM.
+  export OMPX_STRICT_SANITY_CHECKS={OMPX_STRICT_SANITY_CHECKS:-1}
 
 SUITE_LIST=${SUITE_LIST:-"examples smoke-limbo smoke smoke-asan smoke-fort smoke-fort-limbo omp5 openmpapps ovo sollve babelstream fortran-babelstream accel2023 hpc2021"}
 blockinglist="examples_fortran examples_openmp smoke smoke-limbo openmpapps sollve45 sollve50 babelstream ovo accel2023 hpc2021"
@@ -64,6 +71,7 @@ else
 SUITE_LIST=${SUITE_LIST:-"examples smoke-limbo smoke smoke-asan smoke-fort smoke-fort-limbo omp5 openmpapps LLNL nekbone ovo sollve babelstream fortran-babelstream accel2023 hpc2021"}
 blockinglist="examples_fortran examples_openmp smoke smoke-limbo openmpapps sollve45 sollve50 babelstream ovo accel2023 hpc2021"
 fi
+
 EPSDB_LIST=${EPSDB_LIST:-"examples smoke-limbo smoke-dev smoke smoke-asan omp5 openmpapps LLNL nekbone ovo sollve babelstream fortran-babelstream accel2023 hpc2021  smoke-fort smoke-fort-limbo"}
 
 export AOMP_USE_CCACHE=0
