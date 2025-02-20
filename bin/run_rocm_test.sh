@@ -1005,7 +1005,7 @@ function hpc2021(){
     tar xf npsdbOmpi.tar
     rm -f npsdbOmpi.tar
     popd
-    export MPI=/tmp/npsdb/openmpi-5.0.0
+    export MPI=/tmp/npsdb/openmpi-5.0.6
     mkdir -p "$resultsdir"/hpc2021
     cd "$aompdir"/bin
     unset ROCR_VISIBLE_DEVICES
